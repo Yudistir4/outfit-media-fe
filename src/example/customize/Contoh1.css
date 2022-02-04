@@ -1,0 +1,11 @@
+.button {
+  background-color: red;
+}
+
+.button:disabled {
+  background-color: blue;
+}
+
+.button:hover {
+  background-color: purple;
+}

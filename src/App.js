@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import { CssBaseline, Button } from "@mui/material";
+
+import Form from "./example/Form";
+import Topbar from "./core/navigation/Appbar";
+import Menu from "./example/Menu";
+import MyDialog from "./core/feedback/MyDialog";
+import Theme from "./example/Theme";
+import DarkMode from "./example/DarkMode";
+import Snackbar from "./example/Snackbar";
+import Contoh from "./example/customize/Contoh1";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <CssBaseline />
     </div>
   );
 }
