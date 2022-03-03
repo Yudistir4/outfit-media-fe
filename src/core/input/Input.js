@@ -8,7 +8,7 @@ function Input({ name, control, ...otherProps }) {
     size: "small",
     InputLabelProps: otherProps.type === "date" ? { shrink: true } : null,
     // fullWidth: true,
-    variant: "outlined",
+    variant: otherProps.variant ? otherProps.variant : "outlined",
   };
   //   console.log(otherProps);
 
@@ -17,12 +17,13 @@ function Input({ name, control, ...otherProps }) {
       name={name}
       control={control}
       render={({
-        field: { onChange, value },
+        field: { onChange, value, ref },
         fieldState: { error },
         formState,
       }) => (
         <TextField
           {...configTextField}
+          inputRef={ref}
           helperText={error ? error.message : null}
           error={!!error}
           onChange={onChange}

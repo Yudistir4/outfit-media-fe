@@ -6,7 +6,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContentText from "@mui/material/DialogContentText";
 import Dialog from "@mui/material/Dialog";
 
-export default function SimpleDialogDemo({ title, content, ...others }) {
+export default function MyDialog({ title, content, ...others }) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => setOpen(true);
