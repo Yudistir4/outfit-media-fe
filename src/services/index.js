@@ -7,8 +7,8 @@ import UploadFile from "./UploadFile";
 import DeleteFile from "./DeleteFile";
 
 // GET
-const getSomething = (data) =>
-  Get(`SOMETHING?page=${data.page}&limit=${data.limit}`);
+const getInfluencersPosts = ({ page, limit }) =>
+  Get(`influencers/posts?page=${page}&limit=${limit}`);
 
 // POST
 const login = (data) => Post("auth/login", data);
@@ -17,19 +17,19 @@ const uploadFile = (file) => UploadFile(file, "miniblog");
 const createSomething = (data) => Post("something", data);
 
 // PUT
-const updateSomething = (data) => Put(`Somethings/${data.id}`, data);
+const updateInfluencer = (data) => Put(`influencers/${data.id}`, data);
 
 // DELETE
 const deleteSomething = (id) => Delete(`something/${id}`);
 const deleteFile = (filename) => DeleteFile("miniblog", filename);
 
 const API = {
-  getSomething,
+  getInfluencersPosts,
   login,
   signup,
   createSomething,
   uploadFile,
-  updateSomething,
+  updateInfluencer,
   deleteSomething,
   deleteFile,
 };
