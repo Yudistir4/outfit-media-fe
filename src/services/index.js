@@ -18,6 +18,7 @@ const createSomething = (data) => Post("something", data);
 
 // PUT
 const updateInfluencer = (data) => Put(`influencers/${data.id}`, data);
+const updatePost = (data) => Put(`posts/${data.id}`, data);
 
 // DELETE
 const deleteSomething = (id) => Delete(`something/${id}`);
@@ -30,6 +31,7 @@ const API = {
   createSomething,
   uploadFile,
   updateInfluencer,
+  updatePost,
   deleteSomething,
   deleteFile,
 };

@@ -1,6 +1,7 @@
-import React from "react";
+import { useState, useEffect, useRef } from "react";
 import "./postList.css";
 import { Link } from "react-router-dom";
+import API from "../../services";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -12,39 +13,63 @@ import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
 
+const Post = ({ post }) => {
+  const [like, setLike] = useState(post.favorite || false);
+  const handleFavoritePost = async (id) => {
+    setLike((prev) => !prev);
+  };
+  const initialRender = useRef(true);
+  useEffect(() => {
+    let timer1;
+
+    if (initialRender.current) {
+      initialRender.current = false;
+    } else {
+      timer1 = setTimeout(async () => {
+        console.log(like);
+        await API.updatePost({ id: post._id, favorite: like });
+      }, 1000);
+    }
+    return () => {
+      clearTimeout(timer1);
+    };
+  }, [like]);
+
+  return (
+    <Grid item xs={4}>
+      <Card sx={{ maxWidth: "100%" }}>
+        <a href={`https://www.instagram.com/p/${post.idPostIg}`}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height="130"
+              width="100"
+              image={post.postImgDisplayUrlFirebase}
+              alt="green iguana"
+            />
+          </CardActionArea>
+        </a>
+        <CardActions>
+          <IconButton aria-label="" size="small" onClick={handleFavoritePost}>
+            <FavoriteIcon size="small" color={like ? "error" : ""} />
+          </IconButton>
+          {post.jumlahLike}
+          {/* <Chip label="3" size="small" /> */}
+          {/* <Button size="small" color="primary">
+              Share
+            </Button> */}
+        </CardActions>
+      </Card>
+    </Grid>
+  );
+};
+
 const PostList = ({ posts }) => {
   console.log(posts);
 
   return (
     <Grid item container xs={6} spacing={1}>
-      {posts &&
-        posts.map((item, index) => (
-          <Grid item xs={4} key={index}>
-            <Card sx={{ maxWidth: "100%" }}>
-              <a href={`https://www.instagram.com/p/${item.idPostIg}`}>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    height="130"
-                    width="100"
-                    image={item.postImgDisplayUrlFirebase}
-                    alt="green iguana"
-                  />
-                </CardActionArea>
-              </a>
-              <CardActions>
-                <IconButton aria-label="" size="small">
-                  <FavoriteIcon size="small" />
-                </IconButton>
-                {item.jumlahLike}
-                {/* <Chip label="3" size="small" /> */}
-                {/* <Button size="small" color="primary">
-              Share
-            </Button> */}
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
+      {posts && posts.map((item) => <Post post={item} key={item.idPostIg} />)}
     </Grid>
   );
 };
