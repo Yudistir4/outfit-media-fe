@@ -46,14 +46,12 @@ const Post = ({ post }) => {
                 position: "relative",
                 width: "100%",
                 paddingTop: "100%",
-                backgroundColor: "red",
                 overFlow: "hidden",
               }}
             >
               <CardMedia
                 component="img"
                 height="100%"
-                // width="100"
                 sx={{
                   position: "absolute",
                   top: 0,

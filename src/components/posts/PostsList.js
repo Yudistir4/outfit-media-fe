@@ -11,6 +11,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
+import Box from "@mui/material/Box";
 
 const Post = ({ post }) => {
   const [like, setLike] = useState(post.favorite || false);
@@ -35,17 +36,32 @@ const Post = ({ post }) => {
   }, [like]);
 
   return (
-    <Grid item xs={4}>
+    <Grid item xs={2}>
       <Card sx={{ maxWidth: "auto" }}>
         <a href={`https://www.instagram.com/p/${post.idPostIg}`}>
           <CardActionArea>
-            <CardMedia
-              component="img"
-              height="50%"
-              sx={{ objectFit: "cover" }}
-              image={post.postImgDisplayUrlFirebase}
-              alt="green iguana"
-            />
+            <Box
+              sx={{
+                position: "relative",
+                width: "100%",
+                paddingTop: "100%",
+                overFlow: "hidden",
+              }}
+            >
+              <CardMedia
+                component="img"
+                height="100%"
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                }}
+                image={post.postImgDisplayUrlFirebase}
+                alt="green iguana"
+              />
+            </Box>
           </CardActionArea>
         </a>
         <CardActions>

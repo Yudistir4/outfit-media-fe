@@ -9,7 +9,8 @@ import DeleteFile from "./DeleteFile";
 // GET
 const getInfluencersPosts = ({ page, limit }) =>
   Get(`influencers/posts?page=${page}&limit=${limit}`);
-const getPosts = (query) => Get(`posts?query=${query}`);
+const getPosts = ({ query, limit, page }) =>
+  Get(`posts?query=${query}&limit=${limit}&page=${page}`);
 
 // POST
 const login = (data) => Post("auth/login", data);

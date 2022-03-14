@@ -4,6 +4,7 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 import useDialog from "../hooks/useDialog";
 import { useSnackbar } from "notistack";
 import useConfirm from "../hooks/useConfirm";
+import useQuery from "../hooks/useQuery";
 
 import InfluencerForm from "../components/forms/InfluencerForm";
 import InfluencerList from "../components/influencer/InfluencerList";
@@ -16,10 +17,6 @@ import Pagination from "@mui/material/Pagination";
 import Button from "@mui/material/Button";
 
 let render = 1;
-function useQuery() {
-  const { search } = useLocation();
-  return useMemo(() => new URLSearchParams(search), [search]);
-}
 
 const Influencer = () => {
   render++;
