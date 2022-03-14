@@ -10,24 +10,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// const data = [
-//   { name: "Page A", uv: 4000 },
-//   { name: "Page B", uv: 3000 },
-//   { name: "Page C", uv: 2000 },
-//   { name: "Page D" },
-//   { name: "Page E", uv: 1890 },
-//   { name: "Page F", uv: 2390 },
-//   { name: "Page G", uv: 3490 },
-// ];
-
 class CustomizedAxisTick extends PureComponent {
   render() {
     const { x, y, stroke, payload, data } = this.props;
 
-    // switch (payload.value) {
-    //   case 1:
-    //     link = data[0];
-    // }
     let link;
     try {
       link = data.filter((item) => {
@@ -39,8 +25,6 @@ class CustomizedAxisTick extends PureComponent {
       link = "/";
       console.log("GAGAL LINK");
     }
-    // console.log(link);
-    // console.log(data);
     return (
       <svg x={x - 12} y={y + 4}>
         <foreignObject width="24" height="24">
@@ -81,70 +65,32 @@ const renderCustomAxisTick = ({ x, y, payload, ...props }) => {
         </div>
       </foreignObject>
     </svg>
-    // <svg>
-    //   <foreignobject
-    //     x={x - 12}
-    //     y={y + 4}
-    //     width="400"
-    //     height="400"
-    //     // width={24}
-    //     // height={24}
-    //     // viewBox="0 0 1024 1024"
-    //     // style={{
-    //     //   background: "#aaa",
-    //     //   color: "#111",
-    //     //   fontSize: "14px",
-    //     //   width: "100px",
-    //     // }}
-    //     // fill="#666"
-    //   >
-    //     <div xmlns="http://www.w3.org/1999/xhtml">Hello From SVG</div>
-    //   </foreignobject>
-    // </svg>
-    //     <svg
-    //       x={x - 12}
-    //       y={y + 4}
-    //       width={24}
-    //       height={24}
-    //       viewBox="0 0 1024 1024"
-    //       fill="#666"
-    //     >
-    //       <a href="">
-    //         <path d={path} />
-    //         as
-    //       </a>
-    //     </svg>
   );
 };
 const Example = ({ data }) => {
   return (
-    <div style={{ width: "100%" }}>
-      <ResponsiveContainer width="100%" height={150}>
-        <LineChart
-          width={500}
-          height={200}
-          data={data}
-          margin={{
-            top: 10,
-            right: 30,
-            left: 0,
-            bottom: 0,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" tick={<CustomizedAxisTick data={data} />} />
-          <YAxis />
-          <Tooltip />
-          <Line
-            connectNulls
-            type="monotone"
-            dataKey="uv"
-            stroke="#8884d8"
-            fill="#8884d8"
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
+    // <div style={{ width: "100%", height: "100%" }}>
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart
+        // width={500}
+        // height={200}
+        data={data}
+        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" tick={<CustomizedAxisTick data={data} />} />
+        <YAxis />
+        <Tooltip />
+        <Line
+          connectNulls
+          type="monotone"
+          dataKey="uv"
+          stroke="#8884d8"
+          fill="#8884d8"
+        />
+      </LineChart>
+    </ResponsiveContainer>
+    // </div>
   );
 };
 
