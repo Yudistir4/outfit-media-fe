@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import "./postList.css";
 import { Link } from "react-router-dom";
 import API from "../../services";
 
@@ -12,7 +11,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
-import Box from "@mui/material/Box";
 
 const Post = ({ post }) => {
   const [like, setLike] = useState(post.favorite || false);
@@ -38,33 +36,16 @@ const Post = ({ post }) => {
 
   return (
     <Grid item xs={4}>
-      <Card sx={{ maxWidth: "100%" }}>
+      <Card sx={{ maxWidth: "auto" }}>
         <a href={`https://www.instagram.com/p/${post.idPostIg}`}>
           <CardActionArea>
-            <Box
-              sx={{
-                position: "relative",
-                width: "100%",
-                paddingTop: "100%",
-                backgroundColor: "red",
-                overFlow: "hidden",
-              }}
-            >
-              <CardMedia
-                component="img"
-                height="100%"
-                // width="100"
-                sx={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                }}
-                image={post.postImgDisplayUrlFirebase}
-                alt="green iguana"
-              />
-            </Box>
+            <CardMedia
+              component="img"
+              height="50%"
+              sx={{ objectFit: "cover" }}
+              image={post.postImgDisplayUrlFirebase}
+              alt="green iguana"
+            />
           </CardActionArea>
         </a>
         <CardActions>
@@ -82,14 +63,14 @@ const Post = ({ post }) => {
   );
 };
 
-const PostList = ({ posts }) => {
+const PostsList = ({ posts }) => {
   console.log(posts);
 
   return (
-    <Grid item container xs={6} spacing={1}>
+    <Grid item container xs={12} spacing={1}>
       {posts && posts.map((item) => <Post post={item} key={item.idPostIg} />)}
     </Grid>
   );
 };
 
-export default PostList;
+export default PostsList;

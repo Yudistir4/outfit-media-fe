@@ -9,12 +9,13 @@ import DeleteFile from "./DeleteFile";
 // GET
 const getInfluencersPosts = ({ page, limit }) =>
   Get(`influencers/posts?page=${page}&limit=${limit}`);
+const getPosts = (query) => Get(`posts?query=${query}`);
 
 // POST
 const login = (data) => Post("auth/login", data);
 const signup = (data) => Post("auth/signup", data);
 const uploadFile = (file) => UploadFile(file, "miniblog");
-const createSomething = (data) => Post("something", data);
+const createInfluencer = (data) => Post("influencers", data);
 
 // PUT
 const updateInfluencer = (data) => Put(`influencers/${data.id}`, data);
@@ -26,9 +27,10 @@ const deleteFile = (filename) => DeleteFile("miniblog", filename);
 
 const API = {
   getInfluencersPosts,
+  getPosts,
   login,
   signup,
-  createSomething,
+  createInfluencer,
   uploadFile,
   updateInfluencer,
   updatePost,

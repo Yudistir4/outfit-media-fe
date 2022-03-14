@@ -1,4 +1,12 @@
-import { useState, createContext, useContext, useRef, useEffect } from "react";
+import {
+  useState,
+  createContext,
+  useContext,
+  useRef,
+  useEffect,
+  useCallback,
+  memo,
+} from "react";
 import Button from "@mui/material/Button";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -12,23 +20,34 @@ export const useDialog = () => {
   return useContext(DialogCtx);
 };
 
-const MyDialog = ({ handleClose, open, title, content, handleOk }) => {
+const MyDialog = ({
+  handleClose,
+  open,
+  title,
+  contentText,
+  contentComponent,
+  handleOk,
+}) => {
   return (
     <Dialog onClose={handleClose} open={open} fullWidth>
       <DialogTitle>{title ? title : "Title"}</DialogTitle>
 
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {content ? content : "Content..."}
-        </DialogContentText>
+        {contentComponent && contentComponent}
+        {!contentComponent && (
+          <DialogContentText id="alert-dialog-description">
+            {contentText ? contentText : "Content..."}
+          </DialogContentText>
+        )}
       </DialogContent>
-
-      <DialogActions>
-        <Button onClick={handleOk}>Delete</Button>
-        <Button onClick={handleClose} autoFocus>
-          Batalkan
-        </Button>
-      </DialogActions>
+      {!contentComponent && (
+        <DialogActions>
+          <Button onClick={handleOk}>Delete</Button>
+          <Button onClick={handleClose} autoFocus>
+            Batalkan
+          </Button>
+        </DialogActions>
+      )}
     </Dialog>
   );
 };
@@ -36,47 +55,59 @@ const MyDialog = ({ handleClose, open, title, content, handleOk }) => {
 const DialogProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState();
-  const [content, setContent] = useState();
+  const [contentText, setContentText] = useState();
+  const [contentComponent, setContentComponent] = useState();
   const confirmation = useRef();
   const cancellation = useRef();
 
-  // const [actionOk, setActionOk] = useState();
-  // const [dialogStatus, setDialogStatus] = useState();
-  useEffect(() => {
-    console.log(confirmation.current);
-  }, [confirmation]);
+  // useEffect(() => {
+  //   console.log(confirmation.current);
+  // }, [confirmation]);
 
-  const handleOk = () => {
+  const handleOk = useCallback(() => {
     confirmation.current && confirmation.current(true);
     setOpen(false);
-  };
+  }, []);
 
-  const handleOpen = () => {
+  const handleOpen = useCallback(() => {
     setOpen(true);
-  };
-  const handleClose = () => {
+  }, []);
+
+  const handleClose = useCallback(() => {
     setOpen(false);
 
     cancellation.current && cancellation.current(false);
-  };
+  }, []);
 
-  const createDialog = (title, content) => {
-    setTitle(title);
-    setContent(content);
+  const createDialog = useCallback((data) => {
+    if (data.title) setTitle(data.title);
+    if (data.contentText) setContentText(data.contentText);
+    if (data.contentComponent) setContentComponent(data.contentComponent);
     // setActionOk(actionOk);
     handleOpen();
     return new Promise(function (myResolve, myReject) {
       confirmation.current = myResolve;
       cancellation.current = myReject;
     });
+  }, []);
+
+  const props = {
+    handleOpen,
+    handleClose,
+    open,
+    title,
+    contentText,
+    contentComponent,
+    handleOk,
   };
-  const props = { handleOpen, handleClose, open, title, content, handleOk };
 
   return (
-    <DialogCtx.Provider value={createDialog}>
+    <>
+      <DialogCtx.Provider value={{ createDialog, ...props }}>
+        {children}
+      </DialogCtx.Provider>
       <MyDialog {...props} />
-      {children}
-    </DialogCtx.Provider>
+    </>
   );
 };
 

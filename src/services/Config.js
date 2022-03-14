@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 
-export const rootPath = "http://localhost:5000/";
+export const rootPath = "http://localhost:5001/";
 
 export const firebaseConfig = {};
 
