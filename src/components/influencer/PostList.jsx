@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./postList.css";
 import { Link } from "react-router-dom";
 import API from "../../services";

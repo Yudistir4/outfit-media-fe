@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect, useRef, memo, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import API from "../../services";
 import useDialog from "../../hooks/useDialog";
+import { useSnackbar } from "notistack";
 
 import LineChart from "./LineChart";
 import PostList from "./PostList";
@@ -19,30 +20,63 @@ import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 
 let render = 0;
-const InfluencerListItem = ({ influencer }) => {
+const InfluencerListItem = ({
+  influencer,
+  deleteInfluencersState,
+  updateInfluencersState,
+}) => {
   render++;
   console.log("Render Influencer Item :", render);
 
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [like, setLike] = useState(influencer.favorite);
   const { createDialog } = useDialog();
+  const initialRender = useRef(true);
+
   const handleFavoriteInfluencer = async (id) => {
     setLike((prev) => !prev);
   };
 
-  const editInfluencer = useCallback(() => {
+  const editInfluencer = () => {
     createDialog({
       title: "Edit Influencer",
-      contentComponent: <InfluencerForm influencer={influencer} />,
+      contentComponent: (
+        <InfluencerForm
+          influencer={influencer}
+          updateInfluencersState={updateInfluencersState}
+        />
+      ),
     })
       .then(() => {
         console.log("HANDLE OK");
+        // updateInfluencersState();
       })
       .catch(() => {
         console.log("HANDLE CANCEL");
       });
-  }, []);
+  };
 
-  const initialRender = useRef(true);
+  const handleDeleteInfluencer = async () => {
+    createDialog({
+      title: "Delete Influencer " + influencer.username,
+      description: "Are u sure?",
+    })
+      .then(async () => {
+        try {
+          // await API.deleteInfluencerAndPosts(influencer._id);
+          console.log("DELETE INFLUENCER");
+          console.log("influencer.id : ", influencer.id);
+
+          deleteInfluencersState(influencer.id);
+          enqueueSnackbar("Delete Influencer success", { variant: "success" });
+        } catch (error) {
+          console.log("Error Delete Influencer : ", error);
+          enqueueSnackbar("Delete Influencer Gagal", { variant: "error" });
+        }
+      })
+      .catch();
+  };
+
   useEffect(() => {
     let timer1;
 
@@ -93,7 +127,11 @@ const InfluencerListItem = ({ influencer }) => {
           </Box>
         </Box>
         <Box>
-          <IconButton aria-label="" color="error">
+          <IconButton
+            aria-label=""
+            color="error"
+            onClick={handleDeleteInfluencer}
+          >
             <DeleteIcon color="error" />
           </IconButton>
           <IconButton aria-label="" color="primary" onClick={editInfluencer}>

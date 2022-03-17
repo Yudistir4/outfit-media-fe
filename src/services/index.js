@@ -23,8 +23,8 @@ const updateInfluencer = (data) => Put(`influencers/${data.id}`, data);
 const updatePost = (data) => Put(`posts/${data.id}`, data);
 
 // DELETE
-const deleteSomething = (id) => Delete(`something/${id}`);
-const deleteFile = (filename) => DeleteFile("miniblog", filename);
+const deleteInfluencerAndPosts = (id) => Delete(`influencers/${id}/posts`);
+const deleteFile = (filename) => DeleteFile("post ", filename);
 
 const API = {
   getInfluencersPosts,
@@ -35,7 +35,7 @@ const API = {
   uploadFile,
   updateInfluencer,
   updatePost,
-  deleteSomething,
+  deleteInfluencerAndPosts,
   deleteFile,
 };
 

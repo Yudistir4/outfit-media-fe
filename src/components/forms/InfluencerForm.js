@@ -2,17 +2,17 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import useDialog from "../../hooks/useDialog";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useSnackbar } from "notistack";
 import API from "../../services";
 
+// import MySelect from "../../core/input/Select";
+// import Grid from "@mui/material/Grid";
+// import Avatar from "@mui/material/Avatar";
 import Input from "../../core/input/Input";
-import MySelect from "../../core/input/Select";
 import Radio from "../../core/input/Radio";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
 import LoadingButton from "@mui/lab/LoadingButton";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
@@ -24,14 +24,14 @@ const FORM_VALIDATION = Yup.object().shape({
   hijab: Yup.boolean().required("Wajib"),
 });
 
-function InfluencerForm({ influencer }) {
+function InfluencerForm({ influencer, ...props }) {
   console.log(influencer);
 
   const { handleClose, handleCancel, handleConfirm } = useDialog();
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const { control, handleSubmit, reset, register, watch } = useForm({
+  const { control, handleSubmit } = useForm({
     resolver: yupResolver(FORM_VALIDATION),
     defaultValues: {
       username: influencer?.username || "",
@@ -40,29 +40,18 @@ function InfluencerForm({ influencer }) {
     },
   });
 
-  const action = (key) => (
-    <IconButton aria-label="" onClick={() => closeSnackbar(key)}>
-      <CloseIcon sx={{ color: "white" }} />
-    </IconButton>
-  );
   const updateInfluencer = async (data) => {
-    console.log("UPDATE");
+    console.log("UPDATE", data);
     try {
       setIsFetching(true);
-      // console.log(await API.updateInfluencer({ ...data, id: influencer._id }));
-      enqueueSnackbar("Update Influencer success", {
-        variant: "success",
-        autoHideDuration: 3000,
-        action,
-      });
+      console.log(await API.updateInfluencer({ ...data, id: influencer._id }));
+      enqueueSnackbar("Update Influencer success", { variant: "success" });
+
+      props.updateInfluencersState({ ...data, id: influencer.id });
       handleConfirm();
     } catch (error) {
       if (error.response.status === 500) {
-        enqueueSnackbar("Update Influencer Failed", {
-          variant: "error",
-          autoHideDuration: 3000,
-          action,
-        });
+        enqueueSnackbar("Update Influencer Failed", { variant: "error" });
         handleClose();
       } else {
         setError(error.response.data.message);
@@ -76,19 +65,11 @@ function InfluencerForm({ influencer }) {
       setIsFetching(true);
       console.log(data);
       console.log(await API.createInfluencer(data));
-      enqueueSnackbar("Create Influencer success", {
-        variant: "success",
-        autoHideDuration: 3000,
-        action,
-      });
+      enqueueSnackbar("Create Influencer success", { variant: "success" });
       handleConfirm();
     } catch (error) {
       if (error.response.status === 500) {
-        enqueueSnackbar("Create Influencer Failed", {
-          variant: "error",
-          autoHideDuration: 3000,
-          action,
-        });
+        enqueueSnackbar("Create Influencer Failed", { variant: "error" });
         handleClose();
       } else {
         setError(error.response.data.message);
@@ -99,7 +80,6 @@ function InfluencerForm({ influencer }) {
   };
 
   return (
-    //     <div>
     <form
       onSubmit={handleSubmit(influencer ? updateInfluencer : createInfluencer)}
     >
@@ -112,8 +92,6 @@ function InfluencerForm({ influencer }) {
           pt: 1,
         }}
       >
-        {/* <Grid container spacing={2}> */}
-        {/* <Grid item xs={12}> */}
         <Input
           name="username"
           label="Username"
@@ -143,9 +121,6 @@ function InfluencerForm({ influencer }) {
           ]}
         />
 
-        {/* </Grid> */}
-        {/* <Grid item xs={6}> */}
-
         {error && (
           <Typography variant="body2" color="error" align="center">
             {error}
@@ -170,11 +145,8 @@ function InfluencerForm({ influencer }) {
             Cancel
           </Button>
         </Box>
-        {/* </Grid> */}
-        {/* </Grid> */}
       </Box>
     </form>
-    //     </div>
   );
 }
 

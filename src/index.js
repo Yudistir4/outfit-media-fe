@@ -5,15 +5,31 @@ import AuthProvider from "./store/Auth";
 import DialogProvider from "./hooks/DialogProvider";
 import { SnackbarProvider } from "notistack";
 import ConfirmProvider from "./hooks/ConfirmProvider";
+import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
+
+const notistackRef = React.createRef();
+const onClickDismiss = (key) => () => {
+  notistackRef.current.closeSnackbar(key);
+};
+
+const action = (key) => (
+  <IconButton aria-label="" onClick={onClickDismiss(key)}>
+    <CloseIcon sx={{ color: "white" }} />
+  </IconButton>
+);
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
       <SnackbarProvider
+        ref={notistackRef}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "right",
         }}
+        autoHideDuration={3000}
+        action={action}
       >
         <DialogProvider>
           <ConfirmProvider>

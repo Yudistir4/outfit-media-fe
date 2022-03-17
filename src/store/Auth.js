@@ -1,4 +1,4 @@
-import { useContext, createContext, useReducer, useEffect } from "react";
+import React, { useContext, createContext, useReducer, useEffect } from "react";
 
 const reducer = (state, action) => {
   switch (action.type) {

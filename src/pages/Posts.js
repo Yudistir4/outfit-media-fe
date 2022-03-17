@@ -12,8 +12,6 @@ const Posts = () => {
   const history = useHistory();
   const query = useQuery();
   const page = parseInt(query.get("page")) || 1;
-  console.log("Page:", page);
-
   const limit = parseInt(query.get("limit")) || 20;
 
   const handleChange = (event, value) => {

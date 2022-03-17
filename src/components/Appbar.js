@@ -1,3 +1,4 @@
+import React from "react";
 import { useAuth } from "../store/Auth";
 
 import AppBar from "@mui/material/AppBar";
