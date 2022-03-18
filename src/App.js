@@ -13,6 +13,7 @@ import "./App.css";
 // import Contoh from "./example/customize/Contoh1";
 import Influencer from "./pages/Influencer";
 import Posts from "./pages/Posts";
+import Konva from "./pages/Konva";
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
         </Route>
         <Route path="/posts">
           <Posts />
+        </Route>
+        <Route path="/konva">
+          <Konva />
         </Route>
       </Router>
     </div>
