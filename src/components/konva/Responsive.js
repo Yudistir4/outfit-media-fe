@@ -1,13 +1,13 @@
-import React, { Component, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 // import Konva from "konva";
 // import { render } from "react-dom";
-import { Stage, Layer, Circle, Image } from "react-konva";
+import { Stage, Layer, Image } from "react-konva";
 import useImage from "use-image";
 import templateImg from "../../assets/template.png";
 
 const Picture = ({ currentWidth, cellSize, img, shapeProps }) => {
   let shapeRef = useRef(shapeProps);
-  Object.keys(shapeProps).map(function (key, index) {
+  Object.keys(shapeProps).map(function (key) {
     shapeProps[key] *= cellSize;
   });
   console.log("HAHAHA: ", shapeProps);

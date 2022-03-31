@@ -1,125 +1,136 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Stage, Layer, Star, Text, Image } from "react-konva";
-import useImage from "use-image";
+import { getPost, position } from "../constants/dummy";
+import "./konva.css";
 
-import Responsive from "../components/konva/Responsive";
-import Dragable from "../components/konva/Dragable";
+import Tabbar from "../components/konva/Tabbar";
+import Products from "../components/edit/Products";
+
+import V3 from "../components/konva/V3";
 import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
 
-// const URLImage = ({ src, x, y }) => {
-//   const imageRef = useRef(null);
-//   const [image, setImage] = useState(null);
+import { useForm } from "react-hook-form";
+// import { yupResolver } from "@hookform/resolvers/yup";
+// import { useSnackbar } from "notistack";
+// import { WRITE_VALIDATION } from "../validations/formValidation";
+// import { useAuth } from "../store/Auth";
+// import API from "../services";
+// import { useHistory } from "react-router-dom";
 
-//   const loadImage = () => {
-//     const img = new window.Image();
-//     img.src = src;
-//     img.crossOrigin = "Anonymous";
-//     imageRef.current = img;
-//     imageRef.current.addEventListener("load", handleLoad);
-//   };
+import Input from "../core/input/Input";
+import InputImage from "../components/konva/InputImage";
 
-//   const handleLoad = () => {
-//     setImage(imageRef.current);
-//   };
-// };
+// import IconButton from "@mui/material/IconButton";
+// import CloseIcon from "@mui/icons-material/Close";
+// import Avatar from "@mui/material/Avatar";
+// import ImageIcon from "@mui/icons-material/Image";
+import Box from "@mui/material/Box";
+import LoadingButton from "@mui/lab/LoadingButton";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 
-const LionImage = () => {
-  const [image] = useImage("https://konvajs.org/assets/lion.png");
-  return <Image image={image} />;
-};
-
-function generateShapes() {
-  return [...Array(10)].map((_, i) => ({
-    id: i.toString(),
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    rotation: Math.random() * 180,
-    isDragging: false,
-  }));
-}
-
-const INITIAL_STATE = generateShapes();
-
+// const VALIDATION =
 const Konva = () => {
-  const [stars, setStars] = React.useState(INITIAL_STATE);
+  const [page, setPage] = useState(1);
+  const [isFetching, setIsFetching] = useState(false);
+  // const [error, setError] = useState();
+  // const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    getValues,
+    setValue,
+  } = useForm({
+    // resolver: yupResolver(VALIDATION),
+    defaultValues: getPost,
+  });
 
-  const handleDragStart = (e) => {
-    const id = e.target.id();
-    setStars(
-      stars.map((star) => {
-        return {
-          ...star,
-          isDragging: star.id === id,
-        };
-      })
-    );
-  };
-  const handleDragEnd = (e) => {
-    setStars(
-      stars.map((star) => {
-        return {
-          ...star,
-          isDragging: false,
-        };
-      })
-    );
+  const [image, setImage] = useState();
+
+  const values = getValues();
+
+  const submit = async (e) => {
+    console.log(e);
   };
 
   return (
     <>
-      <Grid container spacing={0}>
-        <Grid item xs={1}></Grid>
-        <Grid item xs={6}>
-          {/* <Dragable /> */}
-          <Responsive></Responsive>
-          <Stage
-          //  width={window.innerWidth}
-          //  height={window.innerHeight}
-          //  scaleX={scale}
-          //  scaleY={scale}
-          >
-            <Layer>
-              <LionImage />
-
-              <Text text="Try to drag a star" />
-              {stars.map((star) => (
-                <Star
-                  key={star.id}
-                  id={star.id}
-                  x={star.x}
-                  y={star.y}
-                  numPoints={5}
-                  innerRadius={20}
-                  outerRadius={40}
-                  fill="#89b717"
-                  opacity={0.8}
-                  draggable
-                  rotation={star.rotation}
-                  shadowColor="black"
-                  shadowBlur={10}
-                  shadowOpacity={0.6}
-                  shadowOffsetX={star.isDragging ? 10 : 5}
-                  shadowOffsetY={star.isDragging ? 10 : 5}
-                  scaleX={star.isDragging ? 1.2 : 1}
-                  scaleY={star.isDragging ? 1.2 : 1}
-                  onDragStart={handleDragStart}
-                  onDragEnd={handleDragEnd}
+      <form onSubmit={handleSubmit(submit)}>
+        <Grid container spacing={2} p={1}>
+          <Grid item xs={6} container spacing={1}>
+            <V3
+              initPost={values}
+              control={control}
+              setValue={setValue}
+              page={page}
+              watch={watch}
+              getValues={getValues}
+            />
+          </Grid>
+          <Grid container item xs spacing={2}>
+            <Grid item xs={6} className="products">
+              <Box sx={{ display: "flex", gap: 2, flexDirection: "column" }}>
+                <Tabbar
+                  pageCount={values.halaman}
+                  page={page}
+                  setPage={setPage}
+                  setValue={setValue}
+                  control={control}
                 />
-              ))}
-            </Layer>
-          </Stage>
+                <InputImage
+                  control={control}
+                  nameOrId={`displayImg[${page - 1}]`}
+                  setImage={setImage}
+                  position="displayImg"
+                />
+                <Products
+                  control={control}
+                  setValue={setValue}
+                  page={page}
+                  watch={watch}
+                  setImage={setImage}
+                  products={values.products}
+                />
+                {/* {products}
+                {products.length < 3 && (
+                  <Button
+                    variant="contained"
+                    color="success"
+                    onClick={() => addProduct(products.length + 1)}
+                  >
+                    ADD PRODUCT
+                  </Button>
+                )} */}
+
+                <LoadingButton
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  loading={isFetching}
+                  // sx={{ width: "100%" }}
+                >
+                  UPLOAD
+                </LoadingButton>
+              </Box>
+            </Grid>
+            <Grid item xs={6} className="products">
+              <Input
+                name={`captions`}
+                control={control}
+                variant="outlined"
+                fullWidth
+                label="Captions"
+                placeholder="caption..."
+                multiline
+                rows={3}
+              />
+            </Grid>
+          </Grid>
+          {/* <Grid item xs={1}></Grid> */}
         </Grid>
-        <Grid item xs={2}>
-          <TextField id="" label="Asik" fullWidth />
-          <TextField id="" label="Asik" fullWidth />
-        </Grid>
-        <Grid item xs={2}>
-          <TextField id="" label="Asik" fullWidth />
-          <TextField id="" label="Asik" fullWidth />
-        </Grid>
-        <Grid item xs={1}></Grid>
-      </Grid>
+      </form>
     </>
   );
 };

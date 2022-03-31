@@ -3,6 +3,7 @@ import { CssBaseline } from "@mui/material";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Appbar from "./components/Appbar";
 import "./App.css";
+import "./style.css";
 // import Form from "./example/Form";
 // import Topbar from "./core/navigation/Appbar";
 // import Menu from "./example/Menu";

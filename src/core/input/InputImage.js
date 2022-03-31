@@ -3,8 +3,11 @@ import IconButton from "@mui/material/IconButton";
 import { Controller } from "react-hook-form";
 
 const InputImage = ({ control, setImage, nameOrId, btn, icon }) => {
-  const handleChange = (e) =>
-    e.target.files.length > 0 && setImage(e.target.files[0]);
+  const handleChange = (e) => {
+    if (setImage) {
+      e.target.files.length > 0 && setImage(e.target.files[0]);
+    }
+  };
   return (
     <>
       <Controller
