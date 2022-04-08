@@ -6,15 +6,19 @@ import ImageCanvas from "./ImageCanvas";
 import TextCanvas from "./TextCanvas";
 
 import Toolbar from "./Toolbar";
-import Grid from "@mui/material/Grid";
 
-const Dragable = ({ initPost, control, setValue, page = 1, getValues }) => {
+const Dragable = ({
+  initPost,
+  control,
+  setValue,
+  page = 1,
+  getValues,
+  toolbar,
+}) => {
   console.log("V3 : ", initPost);
   const [post, setPost] = React.useState(initPost);
   const [template, setTemplate] = React.useState();
-  console.log("POST :", post.products);
-  // const postRef = useRef(initPost);
-  // postRef.current = initPost;
+
   const [selectedId, selectShape] = React.useState(null);
   const stageRef = useRef();
 
@@ -181,7 +185,6 @@ const Dragable = ({ initPost, control, setValue, page = 1, getValues }) => {
     data = getValues ? getValues() : initPost;
     const convert = JSON.parse(JSON.stringify(data));
 
-    console.log(convert.template);
     for (let i = 0; i < convert.displayImg.length; i++) {
       convert.displayImg[i] = convertToRealSize(convert.displayImg[i]);
     }
@@ -209,13 +212,18 @@ const Dragable = ({ initPost, control, setValue, page = 1, getValues }) => {
   // debugger;
   return (
     <>
-      <Grid item xs={2}>
-        <Toolbar
-          handleDownload={handleDownload}
-          handleAlignCenter={handleAlignCenter}
-        />
-      </Grid>
-      <Grid item xs={10}>
+      {toolbar !== false && (
+        // <Grid item xs={2}>
+        <div className="flex w-full h-[50px] aspect-auto bg-slate-400 md:w-[50px] md:h-[90vh]">
+          <Toolbar
+            handleDownload={handleDownload}
+            handleAlignCenter={handleAlignCenter}
+          />
+        </div>
+        // </Grid>
+      )}
+      <div className="bg-blue-500 w-full md:flex-grow md:w-0 md:h-[90vh] md:max-w-[90vh] lg:w-[90vh]">
+        {/* <Grid item xs={toolbar !== false ? 10 : 12}> */}
         <div style={{ width: "100%", border: "1px solid red" }} ref={container}>
           <Stage
             width={currentWidth}
@@ -228,7 +236,6 @@ const Dragable = ({ initPost, control, setValue, page = 1, getValues }) => {
               {post.displayImg[page - 1] && post.displayImg[page - 1].link && (
                 <ImageCanvas
                   setValue={setValue}
-                  control={control}
                   name={`displayImg[${page - 1}]`}
                   convertToPercentageSize={convertToPercentageSize}
                   img={post.displayImg[page - 1].link}
@@ -256,42 +263,23 @@ const Dragable = ({ initPost, control, setValue, page = 1, getValues }) => {
                 <ImageCanvas
                   setValue={setValue}
                   name={"template"}
-                  control={control}
                   convertToPercentageSize={convertToPercentageSize}
                   img={template.link}
                   shapeProps={template}
-                  // img={post.template.link}
-                  // shapeProps={post.template}
-                  // isSelected={post.template.id === selectedId}
-                  // onSelect={() => {
-                  //   if (post.template.id) selectShape(post.template.id);
-                  // }}
-                  // onChangeCanvas={(newAttrs) => {
-                  //   setPost((prev) => {
-                  //     prev.template = newAttrs;
-                  //     return { ...prev };
-                  //   });
-                  //   // postRef.current.template = convertToPercentageSize(newAttrs);
-
-                  //   // updatepostsRef(i, newAttrs, "template");
-                  // }}
                 />
               )}
               {currentWidth &&
                 cellSize &&
                 post.products
                   .map((product, i) => {
-                    console.log("item: ", i);
                     if (product.halaman === page) {
                       // debugger;
-                      console.log("item: ", i);
                       return (
                         <React.Fragment key={i}>
                           {product.img.link && (
                             <ImageCanvas
                               setValue={setValue}
                               name={`products[${i}].img`}
-                              control={control}
                               convertToPercentageSize={convertToPercentageSize}
                               img={product.img.link}
                               shapeProps={product.img}
@@ -315,7 +303,6 @@ const Dragable = ({ initPost, control, setValue, page = 1, getValues }) => {
                           <ImageCanvas
                             setValue={setValue}
                             name={`products[${i}].logo`}
-                            control={control}
                             convertToPercentageSize={convertToPercentageSize}
                             img={product.logo.link}
                             shapeProps={product.logo}
@@ -336,6 +323,7 @@ const Dragable = ({ initPost, control, setValue, page = 1, getValues }) => {
                               // updateProductsRef(i, newAttrs, "img");
                             }}
                           />
+
                           <TextCanvas
                             control={control}
                             name={`products[${i}].price`}
@@ -369,7 +357,8 @@ const Dragable = ({ initPost, control, setValue, page = 1, getValues }) => {
             </Layer>
           </Stage>
         </div>
-      </Grid>
+        {/* </Grid> */}
+      </div>
     </>
   );
 };

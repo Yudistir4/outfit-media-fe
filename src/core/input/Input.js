@@ -2,7 +2,7 @@ import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
 
 function Input({ name, control, ...otherProps }) {
-  console.log("input");
+  // console.log("input");
   const configTextField = {
     ...otherProps,
     size: "small",

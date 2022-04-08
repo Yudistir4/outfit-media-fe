@@ -4,8 +4,9 @@ import React from "react";
 import AddIcon from "@mui/icons-material/Add";
 import logo from "../../assets/logo.jpg";
 
-const Tabbar = ({ pageCount, setPage, page, setValue, control }) => {
+const Tabbar = ({ setPage, page, setValue, control }) => {
   let products = useWatch({ control, name: `products` });
+  let pageCount = useWatch({ control, name: `halaman` });
   console.log("TABBAR: ", products);
   const addPage = () => {
     for (let i = 0; i < 3; i++) {
@@ -67,6 +68,7 @@ const Tabbar = ({ pageCount, setPage, page, setValue, control }) => {
   for (let i = 0; i < pageCount; i++) {
     List.push(
       <button
+        type="button"
         key={i}
         onClick={() => setPage(i + 1)}
         className={`${
@@ -79,11 +81,12 @@ const Tabbar = ({ pageCount, setPage, page, setValue, control }) => {
   }
 
   return (
-    <div className="p-1 bg-blue-500 rounded-md flex">
+    <div className="sticky top-0 lg:top-[56px] xl:top-0 z-10 p-1 bg-blue-500 rounded-md flex">
       <div className="gap-1 scroll-hidden w-[20%] overflow-x-auto scroll- flex flex-nowrap flex-1">
         {List}
       </div>
       <button
+        type="button"
         onClick={addPage}
         className="group shrink-0 h-9 w-10 transition-all  bg-white rounded-md flex justify-center  text-blue-500"
       >

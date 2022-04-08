@@ -1,16 +1,22 @@
 import React from "react";
-import { position } from "../../constants/dummy";
+import { generateProduct } from "../../constants/dummy";
 import logo from "../../assets/logo.jpg";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Input from "../../core/input/Input";
 import InputImage from "../konva/InputImage";
+import { saveAs } from "file-saver";
+import API from "../../services";
 
+import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 const Products = ({ control, page, setValue, watch, products, setImage }) => {
   // let products = useWatch({ control, name: `products` });
+
+  //  saveAs(link, filename || "image.jpg")
 
   const addProduct = () => {
     let products = watch("products");
@@ -27,44 +33,7 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
     // for()
     // let productsPage
     console.log("URUTAN : ", urutan);
-    products.push({
-      id: "p" + Math.floor(Math.random() * 100),
-      halaman: page,
-      urutan,
-      productName: "Sepatu Nike AF1",
-      linkAffiliate: "",
-      linkNo: "",
-      price: {
-        id: "price" + Math.floor(Math.random() * 100),
-        text: "Rp",
-        x: position[urutan - 1].price.x,
-        y: position[urutan - 1].price.y,
-        fontSize: 3,
-        width: 25,
-        height: 3,
-        draggable: true,
-      },
-      img: {
-        id: "img" + Math.floor(Math.random() * 100),
-        link: null,
-        x: 71.435,
-        y: 53.8,
-        width: 20,
-        height: 20,
-        draggable: true,
-      },
-      logo: {
-        username: "karungjantan",
-        id: "logo" + Math.floor(Math.random() * 100),
-        link: logo,
-        x: position[urutan - 1].logo.x,
-        y: position[urutan - 1].logo.y,
-        width: 6,
-        height: 6,
-        draggable: true,
-      },
-    });
-
+    products.push(generateProduct(page, urutan));
     setValue("products", products);
   };
 
@@ -93,8 +62,18 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
                   position={`product${item.urutan}`}
                   setImage={setImage}
                 />
+                <IconButton
+                  onClick={() =>
+                    saveAs(item.img.link, item.img.name || "image.jpg")
+                  }
+                >
+                  <ArrowDownwardIcon />
+                </IconButton>
                 <IconButton onClick={() => deleteProduct(item.id)}>
                   <DeleteIcon />
+                </IconButton>
+                <IconButton>
+                  <SearchIcon />
                 </IconButton>
               </div>
 

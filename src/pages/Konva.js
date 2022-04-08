@@ -4,10 +4,16 @@ import "./konva.css";
 
 import Tabbar from "../components/konva/Tabbar";
 import Products from "../components/edit/Products";
+import Captions from "../components/edit/Captions";
+import StatusToolbar from "../components/edit/StatusToolbar";
 
-import V3 from "../components/konva/V3";
+import { saveAs } from "file-saver";
+import Fab from "@mui/material/Fab";
+// import V3 from "../components/konva/V3";
+import PostEditor from "../components/konva/PostEditor";
 import Grid from "@mui/material/Grid";
-
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import SaveIcon from "@mui/icons-material/Save";
 import { useForm } from "react-hook-form";
 // import { yupResolver } from "@hookform/resolvers/yup";
 // import { useSnackbar } from "notistack";
@@ -60,7 +66,7 @@ const Konva = () => {
       <form onSubmit={handleSubmit(submit)}>
         <Grid container spacing={2} p={1}>
           <Grid item xs={6} container spacing={1}>
-            <V3
+            <PostEditor
               initPost={values}
               control={control}
               setValue={setValue}
@@ -79,12 +85,25 @@ const Konva = () => {
                   setValue={setValue}
                   control={control}
                 />
-                <InputImage
-                  control={control}
-                  nameOrId={`displayImg[${page - 1}]`}
-                  setImage={setImage}
-                  position="displayImg"
-                />
+                <div className="flex">
+                  <InputImage
+                    control={control}
+                    nameOrId={`displayImg[${page - 1}]`}
+                    setImage={setImage}
+                    position="displayImg"
+                  />
+                  <IconButton
+                    onClick={() =>
+                      saveAs(
+                        values.displayImg[page - 1].link,
+                        values.displayImg[page - 1].name || "image.jpg"
+                      )
+                    }
+                  >
+                    <ArrowDownwardIcon />
+                  </IconButton>
+                </div>
+
                 <Products
                   control={control}
                   setValue={setValue}
@@ -116,6 +135,7 @@ const Konva = () => {
               </Box>
             </Grid>
             <Grid item xs={6} className="products">
+              <StatusToolbar setValue={setValue} control={control} />
               <Input
                 name={`captions`}
                 control={control}
@@ -126,8 +146,27 @@ const Konva = () => {
                 multiline
                 rows={3}
               />
+              <Captions control={control} name="generateCaptions" />
+              <Input
+                name={`note`}
+                control={control}
+                variant="outlined"
+                fullWidth
+                label="Note"
+                placeholder="Note"
+                multiline
+                rows={3}
+              />
             </Grid>
           </Grid>
+          <Fab
+            color="primary"
+            aria-label="add"
+            className="absolute right-0 bottom-0"
+            sx={{ position: "absolute", right: 20, bottom: 20 }}
+          >
+            <SaveIcon />
+          </Fab>
           {/* <Grid item xs={1}></Grid> */}
         </Grid>
       </form>
