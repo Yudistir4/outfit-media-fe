@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { position, createPost } from "../constants/dummy";
 import "./konva.css";
 import { useSnackbar } from "notistack";
@@ -22,14 +22,14 @@ import { useForm } from "react-hook-form";
 // import { WRITE_VALIDATION } from "../validations/formValidation";
 // import { useAuth } from "../store/Auth";
 // import API from "../services";
-// import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import Input from "../core/input/Input";
 import InputImage from "../components/konva/InputImage";
 import IconButton from "@mui/material/IconButton";
 
 // const VALIDATION =
-const Create = () => {
+const Form = ({ feed }) => {
   const [page, setPage] = useState(1);
   const [isFetching, setIsFetching] = useState(false);
   // const [error, setError] = useState();
@@ -43,7 +43,7 @@ const Create = () => {
     setValue,
   } = useForm({
     // resolver: yupResolver(VALIDATION),
-    defaultValues: createPost,
+    defaultValues: feed,
   });
 
   const [image, setImage] = useState();
@@ -51,7 +51,8 @@ const Create = () => {
   const values = getValues();
 
   const submit = async (data) => {
-    // console.log(data);
+    console.log(data);
+    setIsFetching(true);
     try {
       console.log(data.displayImg);
 
@@ -82,8 +83,10 @@ const Create = () => {
       }
       console.log(data.displayImg);
       // });
-      // await API.createPost();
-      // await API.createPost();
+      const res = await API.updateFeed(data);
+      console.log(res);
+      enqueueSnackbar("Save Success", { variant: "success" });
+      setIsFetching(false);
     } catch (error) {
       console.log(error);
     }
@@ -188,6 +191,7 @@ const Create = () => {
           </div>
           {/* </Grid> */}
           <Fab
+            disabled={isFetching}
             color="primary"
             type="submit"
             // className="absolute right-0 bottom-0"
@@ -220,4 +224,24 @@ const Create = () => {
   );
 };
 
-export default Create;
+const Edit = () => {
+  const { id } = useParams();
+  const [feed, setFeed] = useState();
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const result = await API.getFeed(id);
+        console.log(result);
+        setFeed(result);
+      } catch (error) {
+        console.log("GAGAL get data feed");
+      }
+    };
+    getData();
+  }, [id]);
+
+  return <React.Fragment>{feed && <Form feed={feed} />} </React.Fragment>;
+};
+
+export default Edit;

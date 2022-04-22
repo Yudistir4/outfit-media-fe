@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-export const rootPath = "http://localhost:5001/";
+export const rootPath = "http://localhost:5000/";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAN0nUlg4ue39o07RDpk7vRSnL5kU5FCF4",

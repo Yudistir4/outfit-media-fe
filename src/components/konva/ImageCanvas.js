@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { Transformer, Image, Group } from "react-konva";
 import useImage from "use-image";
-// import { useWatch } from "react-hook-form";
+import { useWatch } from "react-hook-form";
 
 // import { Controller } from "react-hook-form";
 

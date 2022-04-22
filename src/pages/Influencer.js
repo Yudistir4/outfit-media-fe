@@ -31,7 +31,7 @@ const Influencer = () => {
     createDialog({
       title: "Create Influencer",
       // contentText: "Asik",
-      contentComponent: <InfluencerForm />,
+      contentWithButton: <InfluencerForm />,
     })
       .then(async () => {
         console.log("HANDLE OK");

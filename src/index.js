@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import AuthProvider from "./store/Auth";
-import DialogProvider from "./hooks/DialogProvider";
+import DialogProvider from "./hooks/useDialog/DialogProvider";
 import { SnackbarProvider } from "notistack";
-import ConfirmProvider from "./hooks/ConfirmProvider";
+// import ConfirmProvider from "./hooks/ConfirmProvider";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 
@@ -32,9 +32,9 @@ ReactDOM.render(
         action={action}
       >
         <DialogProvider>
-          <ConfirmProvider>
-            <App />
-          </ConfirmProvider>
+          {/* <ConfirmProvider> */}
+          <App />
+          {/* </ConfirmProvider> */}
         </DialogProvider>
       </SnackbarProvider>
     </AuthProvider>

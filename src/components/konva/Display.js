@@ -174,28 +174,30 @@ const Dragable = ({ initPost, page = 1 }) => {
                             }}
                           />
                         )}
-                        <ImageCanvas
-                          name={`products[${i}].logo`}
-                          convertToPercentageSize={convertToPercentageSize}
-                          img={product.logo.link}
-                          shapeProps={product.logo}
-                          isSelected={product.logo.id === selectedId}
-                          onSelect={() => {
-                            if (product.logo.id) selectShape(product.logo.id);
-                          }}
-                          onChangeCanvas={(newAttrs) => {
-                            setPost((prev) => {
-                              prev.products[i].logo = newAttrs;
-                              return { ...prev };
-                            });
-                            // postRef.current.products[i].logo =
-                            //   convertToPercentageSize(newAttrs);
-                            // console.log(postRef.current.products[i].logo);
-                            // console.log(postRef.current.products[i].logo);
+                        {product.logo.link && (
+                          <ImageCanvas
+                            name={`products[${i}].logo`}
+                            convertToPercentageSize={convertToPercentageSize}
+                            img={product.logo.link}
+                            shapeProps={product.logo}
+                            isSelected={product.logo.id === selectedId}
+                            onSelect={() => {
+                              if (product.logo.id) selectShape(product.logo.id);
+                            }}
+                            onChangeCanvas={(newAttrs) => {
+                              setPost((prev) => {
+                                prev.products[i].logo = newAttrs;
+                                return { ...prev };
+                              });
+                              // postRef.current.products[i].logo =
+                              //   convertToPercentageSize(newAttrs);
+                              // console.log(postRef.current.products[i].logo);
+                              // console.log(postRef.current.products[i].logo);
 
-                            // updateProductsRef(i, newAttrs, "img");
-                          }}
-                        />
+                              // updateProductsRef(i, newAttrs, "img");
+                            }}
+                          />
+                        )}
                         <TextCanvas
                           name={`products[${i}].price`}
                           convertToPercentageSize={convertToPercentageSize}

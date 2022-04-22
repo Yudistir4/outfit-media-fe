@@ -1,21 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../store/Auth";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { Avatar, IconButton, Grid } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 // import "./Appbar.css";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 export default function PrimarySearchAppBar() {
   const { user, dispatch } = useAuth();
 
   const logoutHandle = () => dispatch({ type: "LOGOUT" });
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+    console.log("leave");
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -70,6 +83,42 @@ export default function PrimarySearchAppBar() {
                 activeclassname="active"
               >
                 FAVORITE POST
+              </NavLink>
+              <div
+                id="basic-button"
+                className="navLink cursor-pointer "
+                // aria-controls={open ? "basic-menu" : undefined}
+                // aria-haspopup="true"
+                // aria-expanded={open ? "true" : undefined}
+                onMouseEnter={handleClick}
+              >
+                FEEDS
+              </div>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <Link to="/feeds-status/inProgress">
+                  <MenuItem onClick={handleClose}>In Progress</MenuItem>
+                </Link>
+                <Link to="/feeds-status/inReview">
+                  <MenuItem onClick={handleClose}>In Review</MenuItem>
+                </Link>
+                <Link to="/feeds-status/done">
+                  <MenuItem onClick={handleClose}>Done</MenuItem>
+                </Link>
+              </Menu>
+              <NavLink
+                to={`/logos/`}
+                className="navLink"
+                activeclassname="active"
+              >
+                LOGO
               </NavLink>
 
               {user && (

@@ -1,11 +1,15 @@
 import React from "react";
-import { generateProduct } from "../../constants/dummy";
+import { generateProduct, generatePosition } from "../../constants/dummy";
 import logo from "../../assets/logo.jpg";
+import InputLogo from "./InputLogo";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Input from "../../core/input/Input";
 import InputImage from "../konva/InputImage";
 import { saveAs } from "file-saver";
 import API from "../../services";
+import useDialog from "../../hooks/useDialog";
+import SearchProduct from "./SearchProduct";
+import SaveIcon from "@mui/icons-material/Save";
 
 import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
@@ -17,6 +21,49 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
   // let products = useWatch({ control, name: `products` });
 
   //  saveAs(link, filename || "image.jpg")
+  console.log(products);
+  const { createDialog } = useDialog();
+
+  const searchProduct = (name, dataBefore, urutan) => {
+    createDialog({
+      title: "Seacrh Product",
+      contentWithButton: (
+        <SearchProduct
+          setValue={(value) =>
+            setValue(name, {
+              ...dataBefore,
+              ...generatePosition(value, urutan),
+            })
+          }
+        />
+      ),
+    })
+      .then((res) => {
+        console.log("confirm");
+        setImage(Math.random());
+      })
+      .catch((res) => console.log("cancelation"));
+  };
+
+  const saveProduct = async (product) => {
+    console.log(product);
+    try {
+      if (product.img.file) {
+        console.log(true);
+        const { filename, url } = await API.uploadFile(
+          product.img.file,
+          "dummy"
+        );
+        product.img.filename = filename;
+        product.img.link = url;
+        delete product.img.file;
+      }
+
+      console.log("berhasil : ", await API.createProduct(product));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const addProduct = () => {
     let products = watch("products");
@@ -72,8 +119,15 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
                 <IconButton onClick={() => deleteProduct(item.id)}>
                   <DeleteIcon />
                 </IconButton>
-                <IconButton>
+                <IconButton
+                  onClick={() =>
+                    searchProduct(`products[${i}]`, item, item.urutan)
+                  }
+                >
                   <SearchIcon />
+                </IconButton>
+                <IconButton onClick={() => saveProduct(item)}>
+                  <SaveIcon />
                 </IconButton>
               </div>
 
@@ -93,6 +147,14 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
                 fullWidth
                 placeholder="Price"
               />
+
+              <InputLogo
+                name={`products[${i}].logo.username`}
+                control={control}
+                setValue={setValue}
+                urutan={item.urutan}
+                setImage={setImage}
+              />
               <Input
                 label="Link affiliate"
                 name={`products[${i}].linkAffiliate`}
@@ -101,18 +163,12 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
                 fullWidth
                 placeholder="Link"
               />
-              <Input
-                label="Username"
-                name={`products[${i}].logo.username`}
-                control={control}
-                variant="standard"
-                fullWidth
-                placeholder="Username"
-              />
+
               <Input
                 label="Link No"
                 name={`products[${i}].linkNo`}
                 control={control}
+                type="number"
                 variant="standard"
                 fullWidth
                 placeholder="Link No"

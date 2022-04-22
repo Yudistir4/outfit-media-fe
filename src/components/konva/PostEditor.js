@@ -235,6 +235,7 @@ const Dragable = ({
             <Layer>
               {post.displayImg[page - 1] && post.displayImg[page - 1].link && (
                 <ImageCanvas
+                  control={control}
                   setValue={setValue}
                   name={`displayImg[${page - 1}]`}
                   convertToPercentageSize={convertToPercentageSize}
@@ -261,6 +262,7 @@ const Dragable = ({
               )}
               {template && (
                 <ImageCanvas
+                  control={control}
                   setValue={setValue}
                   name={"template"}
                   convertToPercentageSize={convertToPercentageSize}
@@ -278,6 +280,7 @@ const Dragable = ({
                         <React.Fragment key={i}>
                           {product.img.link && (
                             <ImageCanvas
+                              control={control}
                               setValue={setValue}
                               name={`products[${i}].img`}
                               convertToPercentageSize={convertToPercentageSize}
@@ -300,29 +303,33 @@ const Dragable = ({
                               }}
                             />
                           )}
-                          <ImageCanvas
-                            setValue={setValue}
-                            name={`products[${i}].logo`}
-                            convertToPercentageSize={convertToPercentageSize}
-                            img={product.logo.link}
-                            shapeProps={product.logo}
-                            isSelected={product.logo.id === selectedId}
-                            onSelect={() => {
-                              if (product.logo.id) selectShape(product.logo.id);
-                            }}
-                            onChangeCanvas={(newAttrs) => {
-                              setPost((prev) => {
-                                prev.products[i].logo = newAttrs;
-                                return { ...prev };
-                              });
-                              // postRef.current.products[i].logo =
-                              //   convertToPercentageSize(newAttrs);
-                              // console.log(postRef.current.products[i].logo);
-                              // console.log(postRef.current.products[i].logo);
+                          {product.logo.link && (
+                            <ImageCanvas
+                              control={control}
+                              setValue={setValue}
+                              name={`products[${i}].logo`}
+                              convertToPercentageSize={convertToPercentageSize}
+                              img={product.logo.link}
+                              shapeProps={product.logo}
+                              isSelected={product.logo.id === selectedId}
+                              onSelect={() => {
+                                if (product.logo.id)
+                                  selectShape(product.logo.id);
+                              }}
+                              onChangeCanvas={(newAttrs) => {
+                                setPost((prev) => {
+                                  prev.products[i].logo = newAttrs;
+                                  return { ...prev };
+                                });
+                                // postRef.current.products[i].logo =
+                                //   convertToPercentageSize(newAttrs);
+                                // console.log(postRef.current.products[i].logo);
+                                // console.log(postRef.current.products[i].logo);
 
-                              // updateProductsRef(i, newAttrs, "img");
-                            }}
-                          />
+                                // updateProductsRef(i, newAttrs, "img");
+                              }}
+                            />
+                          )}
 
                           <TextCanvas
                             control={control}

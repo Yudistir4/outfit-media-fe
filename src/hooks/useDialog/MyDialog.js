@@ -10,6 +10,7 @@ const MyDialog = ({ onClose, onCancel, onConfirm, options, open }) => {
     title,
     description,
     content,
+    contentWithButton,
     confirmationText,
     cancellationText,
     dialogProps,
@@ -17,26 +18,30 @@ const MyDialog = ({ onClose, onCancel, onConfirm, options, open }) => {
     cancellationButtonProps,
     titleProps,
     contentProps,
-    allowClose,
+    // allowClose,
   } = options;
 
   return (
-    <Dialog onClose={onClose} open={open} fullWidth>
-      <DialogTitle>{title ? title : "Title"}</DialogTitle>
+    <Dialog onClose={onClose} open={open} fullWidth {...dialogProps}>
+      <DialogTitle {...titleProps}>{title}</DialogTitle>
 
-      <DialogContent>
-        {options.contentComponent && options.contentComponent}
-        {!options.contentComponent && (
+      <DialogContent {...contentProps}>
+        {content && content}
+        {contentWithButton && contentWithButton}
+        {!contentWithButton && !content && (
           <DialogContentText id="alert-dialog-description">
-            {description ? description : "Content..."}
+            {description}
           </DialogContentText>
         )}
       </DialogContent>
-      {!options.contentComponent && (
+
+      {!contentWithButton && (
         <DialogActions>
-          <Button onClick={onConfirm}>Delete</Button>
-          <Button onClick={onClose} autoFocus>
-            Batalkan
+          <Button onClick={onConfirm} {...confirmationButtonProps}>
+            {confirmationText}
+          </Button>
+          <Button onClick={onCancel} autoFocus {...cancellationButtonProps}>
+            {cancellationText}
           </Button>
         </DialogActions>
       )}

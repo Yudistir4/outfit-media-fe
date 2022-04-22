@@ -15,8 +15,8 @@ import "./style.css";
 import Influencer from "./pages/Influencer";
 import Posts from "./pages/Posts";
 import Konva from "./pages/Konva";
-import Create from "./pages/Create";
-import InProgress from "./pages/InProgress";
+import EditFeed from "./pages/EditFeed";
+import Feeds from "./pages/Feeds";
 
 function App() {
   return (
@@ -33,15 +33,15 @@ function App() {
         <Route path="/posts">
           <Posts />
         </Route>
-        <Route path="/inprogress">
-          <InProgress />
+        <Route path="/feeds-status/:status">
+          <Feeds />
         </Route>
         <Route path="/konva">
           <Konva />
         </Route>
 
-        <Route path="/create">
-          <Create />
+        <Route path="/feeds/:id">
+          <EditFeed />
         </Route>
         {/* <Route path="/edit">
           <Edit />
