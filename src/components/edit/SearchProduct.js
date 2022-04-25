@@ -10,7 +10,7 @@ const SearchProduct = ({ setValue }) => {
   const [input, setInput] = useState();
   const [products, setProducts] = useState();
   const [selected, setSelected] = useState();
-  const { handleClose, handleCancel, handleConfirm } = useDialog();
+  const { handleCancel, handleConfirm } = useDialog();
 
   console.log(selected);
   useEffect(() => {

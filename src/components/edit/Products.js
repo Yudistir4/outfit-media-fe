@@ -1,7 +1,7 @@
 import React from "react";
 import { generateProduct, generatePosition } from "../../constants/dummy";
-import logo from "../../assets/logo.jpg";
 import InputLogo from "./InputLogo";
+import InputLink from "./InputLink";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Input from "../../core/input/Input";
 import InputImage from "../konva/InputImage";
@@ -38,11 +38,11 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
         />
       ),
     })
-      .then((res) => {
+      .then(() => {
         console.log("confirm");
         setImage(Math.random());
       })
-      .catch((res) => console.log("cancelation"));
+      .catch(() => console.log("cancelation"));
   };
 
   const saveProduct = async (product) => {
@@ -155,12 +155,15 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
                 urutan={item.urutan}
                 setImage={setImage}
               />
-              <Input
-                label="Link affiliate"
+              <InputLink
+                // label="Link affiliate"
                 name={`products[${i}].linkAffiliate`}
                 control={control}
-                variant="standard"
-                fullWidth
+                urutanArray={i}
+                setValue={setValue}
+                // variant="standard"
+                // fullWidth
+                setImage={setImage}
                 placeholder="Link"
               />
 

@@ -28,6 +28,7 @@ const createInfluencer = (data) => Post("influencers", data);
 const createPost = (data) => Post("posts", data);
 const createProduct = (data) => Post("products", data);
 const createFeed = (data) => Post("feeds", data);
+const getShopee = (data) => Post("shopees", data);
 
 // PUT
 const updateInfluencer = (data) => Put(`influencers/${data.id}`, data);
@@ -53,6 +54,7 @@ const API = {
   createPost,
   createProduct,
   createFeed,
+  getShopee,
   uploadFile,
   updateInfluencer,
   updatePost,

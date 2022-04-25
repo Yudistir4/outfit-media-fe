@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useWatch } from "react-hook-form";
 import API from "../../services";
-import Input from "../../core/input/Input";
 import { position } from "../../constants/dummy";
 import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
