@@ -247,6 +247,7 @@ const SearchProduct = ({ setValue, link }) => {
         )}
         <div className="flex w-full mt-5 gap-3">
           <Button
+            disabled={isFetching}
             variant="contained"
             fullWidth
             color="primary"
@@ -259,6 +260,7 @@ const SearchProduct = ({ setValue, link }) => {
             OK
           </Button>
           <Button
+            disabled={isFetching}
             fullWidth
             variant="contained"
             color="primary"

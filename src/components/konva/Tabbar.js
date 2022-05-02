@@ -2,7 +2,6 @@ import { useWatch } from "react-hook-form";
 import { position } from "../../constants/dummy";
 import React from "react";
 import AddIcon from "@mui/icons-material/Add";
-import logo from "../../assets/logo.jpg";
 
 const Tabbar = ({ setPage, page, setValue, control }) => {
   let products = useWatch({ control, name: `products` });
@@ -14,7 +13,7 @@ const Tabbar = ({ setPage, page, setValue, control }) => {
         id: "p" + Math.floor(Math.random() * 100),
         halaman: pageCount + 1,
         urutan: i + 1,
-        productName: "as",
+        productName: "",
         linkAffiliate: "",
         linkNo: "",
         price: {
@@ -37,10 +36,9 @@ const Tabbar = ({ setPage, page, setValue, control }) => {
           draggable: true,
         },
         logo: {
-          username: "karungjantan",
-
+          username: "",
           id: "logo" + Math.floor(Math.random() * 100),
-          link: logo,
+          link: null,
           x: position[i].logo.x,
           y: position[i].logo.y,
           width: 6,

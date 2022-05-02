@@ -1,39 +1,105 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import LayersClearIcon from "@mui/icons-material/LayersClear";
+import RemovebgModal from "../edit/RemovebgModal";
+import useDialog from "../../hooks/useDialog";
+import { useSnackbar } from "notistack";
+import API from "../../services";
 
 const initState = {
   jadwal: false,
 };
-const Toolbar = ({ handleDownload, handleAlignCenter }) => {
-  const [state, setState] = useState(initState);
+const Toolbar = ({
+  handleDownload,
+  handleAlignCenter,
+  selectedImage,
+  setImage,
+  setValue,
+}) => {
+  const [limit, setLimit] = useState(999);
 
-  const handleClick = () => {
-    setState((prev) => {
-      return { jadwal: !prev.jadwal };
-    });
+  const { enqueueSnackbar } = useSnackbar();
+  const { createDialog } = useDialog();
+
+  useEffect(() => {
+    const req = async () => {
+      let res = await API.getRemovebgs({ api_limit: true });
+      setLimit(res.limit);
+    };
+
+    req();
+  }, []);
+
+  const removebg = () => {
+    console.log(selectedImage);
+    if (!selectedImage.link)
+      return enqueueSnackbar("Select Image First", { variant: "error" });
+    if (selectedImage.file)
+      return enqueueSnackbar("Save dulu", { variant: "error" });
+
+    createDialog({
+      title: "Remove Bg",
+      allowClose: false,
+      contentWithButton: (
+        <RemovebgModal
+          link={selectedImage.link}
+          setLimit={setLimit}
+          setValue={(value) => {
+            console.log("setValue : ", value);
+            setValue(`products[${selectedImage.index}].img.link`, value.link);
+            setValue(
+              `products[${selectedImage.index}].img.filename`,
+              value.filename
+            );
+            setValue(
+              `products[${selectedImage.index}].img.imgFromShopee`,
+              false
+            );
+          }}
+        />
+      ),
+    })
+      .then((e) => {
+        console.log("confirm");
+        // setLimit(e);
+        setImage(Math.random());
+      })
+      .catch((e) => {
+        console.log("cancelation");
+        // setLimit(e);
+      });
   };
 
   return (
     <div className="w-full   h-full grid grid-cols-4 md:grid-cols-1 md:grid-rows-4 rounded-xl overflow-hidden">
       <div
         onClick={handleAlignCenter}
-        className="bg-gray-700 flex justify-center  items-center hover:bg-blue-600 transition-all cursor-pointer"
+        className="bg-gray-700 flex justify-center  items-center hover:bg-blue-500 transition-all cursor-pointer"
       >
         <FormatAlignCenterIcon className="text-white" />
       </div>
       <div
         onClick={handleDownload}
-        className="bg-blue-500 flex justify-center  items-center hover:bg-blue-600 transition-all cursor-pointer"
+        className="bg-gray-700 flex justify-center  items-center hover:bg-blue-500 transition-all cursor-pointer"
       >
         <ArrowDownwardIcon className="text-white" />
       </div>
       <div
         //    onClick={handleDownload}
-        className="bg-blue-500 flex justify-center  items-center hover:bg-blue-600 transition-all cursor-pointer"
+        className="bg-gray-700 flex justify-center  items-center hover:bg-blue-500 transition-all cursor-pointer"
       >
         <RestartAltIcon className="text-white" />
+      </div>
+      <div
+        onClick={removebg}
+        className="bg-gray-700 flex justify-center  items-center hover:bg-blue-500 transition-all cursor-pointer relative"
+      >
+        <LayersClearIcon className="text-white" />
+        <div className="absolute rounded-full bg-red-500 w-6 h-6 text-white flex sm:top-[55%] top-[50%] left-[50%] sm:left-[45%] flex justify-center items-center text-xs">
+          {limit}
+        </div>
       </div>
     </div>
   );

@@ -18,6 +18,7 @@ const InputLink = ({ name, control, setValue, setImage, urutanArray }) => {
     console.log("Link L: ", link);
     createDialog({
       title: "Seacrh Product",
+      allowClose: false,
       contentWithButton: (
         <SearchProductByLink
           link={link}
@@ -27,8 +28,10 @@ const InputLink = ({ name, control, setValue, setImage, urutanArray }) => {
               setValue(`products[${urutanArray}].productName`, value.name);
             value.price &&
               setValue(`products[${urutanArray}].price.text`, value.price);
-            value.link &&
+            if (value.link) {
               setValue(`products[${urutanArray}].img.link`, value.link);
+              setValue(`products[${urutanArray}].img.imgFromShopee`, true);
+            }
           }}
         />
       ),

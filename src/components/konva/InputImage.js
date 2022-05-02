@@ -67,6 +67,7 @@ const InputImage = ({ control, setImage, nameOrId, btn, icon, position }) => {
                 const elementProps = await getImage(e.target.files[0]);
                 // console.log("value :", value);
                 if (e.target.files.length > 0) {
+                  value.imgFromShopee = false;
                   onChange({
                     ...value,
                     file: e.target.files[0],

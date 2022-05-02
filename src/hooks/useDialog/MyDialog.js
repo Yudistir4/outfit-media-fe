@@ -18,11 +18,16 @@ const MyDialog = ({ onClose, onCancel, onConfirm, options, open }) => {
     cancellationButtonProps,
     titleProps,
     contentProps,
-    // allowClose,
+    allowClose,
   } = options;
 
   return (
-    <Dialog onClose={onClose} open={open} fullWidth {...dialogProps}>
+    <Dialog
+      open={open}
+      fullWidth
+      {...dialogProps}
+      onClose={allowClose ? onClose : null}
+    >
       <DialogTitle {...titleProps}>{title}</DialogTitle>
 
       <DialogContent {...contentProps}>

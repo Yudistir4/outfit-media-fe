@@ -7,6 +7,13 @@ import UploadFile from "./UploadFile";
 import DeleteFile from "./DeleteFile";
 import DownloadFileFirebase from "./DownloadFileFirebase";
 
+const convertToQueryStr = (query) => {
+  let result = "";
+  for (const key in query) {
+    result += `&${key}=${query[key]}`;
+  }
+  return result.replace("&", "?");
+};
 // GET
 
 const getInfluencersPosts = ({ page, limit }) =>
@@ -19,6 +26,7 @@ const getFeeds = ({ status, limit, page }) =>
 const getProducts = ({ productName }) =>
   Get(`products?productName=${productName}`);
 const getLogos = ({ username }) => Get(`logos?username=${username}`);
+const getRemovebgs = (query) => Get(`removebg${convertToQueryStr(query)}`);
 
 // POST
 const login = (data) => Post("auth/login", data);
@@ -29,6 +37,7 @@ const createPost = (data) => Post("posts", data);
 const createProduct = (data) => Post("products", data);
 const createFeed = (data) => Post("feeds", data);
 const getShopee = (data) => Post("shopees", data);
+const removebg = (data) => Post("removebg", data);
 
 // PUT
 const updateInfluencer = (data) => Put(`influencers/${data.id}`, data);
@@ -38,7 +47,7 @@ const updateFeed = (data) => Put(`feeds/${data.id}`, data);
 // DELETE
 const deleteInfluencerAndPosts = (id) => Delete(`influencers/${id}/posts`);
 const deleteFeed = (id) => Delete(`feeds/${id}`);
-const deleteFile = (filename) => DeleteFile("post ", filename);
+const deleteFile = (folder, filename) => DeleteFile(folder, filename);
 
 const API = {
   DownloadFileFirebase,
@@ -48,12 +57,14 @@ const API = {
   getFeeds,
   getProducts,
   getLogos,
+  getRemovebgs,
   login,
   signup,
   createInfluencer,
   createPost,
   createProduct,
   createFeed,
+  removebg,
   getShopee,
   uploadFile,
   updateInfluencer,

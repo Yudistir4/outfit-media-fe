@@ -16,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { useSnackbar } from "notistack";
 
 const Products = ({ control, page, setValue, watch, products, setImage }) => {
   // let products = useWatch({ control, name: `products` });
@@ -24,6 +25,7 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
   console.log(products);
   const { createDialog } = useDialog();
 
+  const { enqueueSnackbar } = useSnackbar();
   const searchProduct = (name, dataBefore, urutan) => {
     createDialog({
       title: "Seacrh Product",
@@ -52,7 +54,7 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
         console.log(true);
         const { filename, url } = await API.uploadFile(
           product.img.file,
-          "dummy"
+          "products"
         );
         product.img.filename = filename;
         product.img.link = url;
@@ -110,9 +112,12 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
                   setImage={setImage}
                 />
                 <IconButton
-                  onClick={() =>
-                    saveAs(item.img.link, item.img.name || "image.jpg")
-                  }
+                  onClick={() => {
+                    if (!item.img.link) {
+                      return enqueueSnackbar("NO IMG", { variant: "error" });
+                    }
+                    saveAs(item.img.link, item.img.name || "image.jpg");
+                  }}
                 >
                   <ArrowDownwardIcon />
                 </IconButton>
@@ -126,7 +131,7 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
                 >
                   <SearchIcon />
                 </IconButton>
-                <IconButton onClick={() => saveProduct(item)}>
+                <IconButton disabled onClick={() => saveProduct(item)}>
                   <SaveIcon />
                 </IconButton>
               </div>

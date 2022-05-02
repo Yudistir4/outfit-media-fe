@@ -13,6 +13,7 @@ const Dragable = ({
   setValue,
   page = 1,
   getValues,
+  setImage,
   toolbar,
 }) => {
   console.log("V3 : ", initPost);
@@ -20,6 +21,10 @@ const Dragable = ({
   const [template, setTemplate] = React.useState();
 
   const [selectedId, selectShape] = React.useState(null);
+  const [selectedImage, setSelectedImage] = useState({
+    link: null,
+    urutan: null,
+  });
   const stageRef = useRef();
 
   const [currentWidth, setCurrentWidth] = useState();
@@ -34,7 +39,13 @@ const Dragable = ({
     await checkSize();
   };
 
-  const deselect = () => selectShape(null);
+  const deselect = () => {
+    selectShape(null);
+    setSelectedImage({
+      link: null,
+      urutan: null,
+    });
+  };
 
   const handleAlignCenter = () => {
     // 64.77
@@ -201,6 +212,7 @@ const Dragable = ({
 
   useEffect(() => {
     checkSize();
+    selectShape(null);
     window.addEventListener("resize", checkSize);
     window.addEventListener("dblclick", deselect);
 
@@ -214,17 +226,20 @@ const Dragable = ({
     <>
       {toolbar !== false && (
         // <Grid item xs={2}>
-        <div className="flex w-full h-[50px] aspect-auto bg-slate-400 md:w-[50px] md:h-[90vh]">
+        <div className="flex w-full h-[50px] aspect-auto  md:w-[50px] md:h-[90vh] lg:h-[88vh]">
           <Toolbar
+            setImage={setImage}
+            setValue={setValue}
+            selectedImage={selectedImage}
             handleDownload={handleDownload}
             handleAlignCenter={handleAlignCenter}
           />
         </div>
         // </Grid>
       )}
-      <div className="bg-blue-500 w-full md:flex-grow md:w-0 md:h-[90vh] md:max-w-[90vh] lg:w-[90vh]">
+      <div className="flex  bg-blue-500 w-full md:flex-grow md:w-0 md:h-[90vh] md:max-w-[90vh] lg:h-[88vh] lg:w-[88vh]">
         {/* <Grid item xs={toolbar !== false ? 10 : 12}> */}
-        <div style={{ width: "100%", border: "1px solid red" }} ref={container}>
+        <div className="w-full border-red-500 border-2" ref={container}>
           <Stage
             width={currentWidth}
             height={currentWidth}
@@ -288,6 +303,11 @@ const Dragable = ({
                               shapeProps={product.img}
                               isSelected={product.img.id === selectedId}
                               onSelect={() => {
+                                setSelectedImage({
+                                  link: product.img.link,
+                                  index: i,
+                                  file: product.img.file ? true : false,
+                                });
                                 if (product.img.id) selectShape(product.img.id);
                               }}
                               onChangeCanvas={(newAttrs) => {

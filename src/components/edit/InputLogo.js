@@ -4,6 +4,7 @@ import API from "../../services";
 import { position } from "../../constants/dummy";
 import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 
 let render = 0;
 const SearchLogo = ({ name, control, setValue, urutan, setImage }) => {
@@ -22,6 +23,7 @@ const SearchLogo = ({ name, control, setValue, urutan, setImage }) => {
       }
     }
     console.log(value);
+    value.id = "logo" + uuidv4();
     setValue(name.replace(".username", ""), value);
     setLogos(null);
     setImage(value.link);

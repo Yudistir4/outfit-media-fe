@@ -74,20 +74,26 @@ const DialogProvider = ({ children, defaultOptionsCustom = {} }) => {
   const handleClose = useCallback(() => {
     setResolveReject([]);
   }, []);
-  const handleCancel = useCallback(() => {
-    console.log("CANCEL");
-    cancellation.current && cancellation.current(true);
+  const handleCancel = useCallback(
+    (data) => {
+      console.log("CANCEL");
+      cancellation.current && cancellation.current(data || true);
 
-    // if (reject) {
-    // reject();
-    handleClose();
-    // }
-  }, [reject, handleClose]);
+      // if (reject) {
+      // reject();
+      handleClose();
+      // }
+    },
+    [reject, handleClose]
+  );
 
-  const handleConfirm = useCallback(() => {
-    confirmation.current && confirmation.current(true);
-    handleClose();
-  }, [resolve, handleClose]);
+  const handleConfirm = useCallback(
+    (data) => {
+      confirmation.current && confirmation.current(data || true);
+      handleClose();
+    },
+    [resolve, handleClose]
+  );
 
   const [asu, setProps] = useState({
     createDialog,
