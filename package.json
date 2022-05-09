@@ -16,6 +16,7 @@
     "cors": "^2.8.5",
     "file-saver": "^2.0.5",
     "firebase": "^9.6.7",
+    "form-data": "^4.0.0",
     "html-to-draftjs": "^1.5.0",
     "konva": "^8.3.4",
     "material-ui-confirm": "^3.0.3",

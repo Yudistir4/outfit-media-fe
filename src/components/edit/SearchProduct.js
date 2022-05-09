@@ -79,7 +79,9 @@ const SearchProduct = ({ setValue }) => {
                 />
                 <div className="flex h-full justify-center flex-col items-center">
                   <div className="">{item.productName}</div>
-                  <div className="font-bold">{item.price.text}</div>
+                  <div className="font-bold">
+                    {new Intl.NumberFormat().format(item.price.text)}
+                  </div>
                 </div>
               </div>
             ))}

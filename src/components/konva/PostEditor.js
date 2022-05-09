@@ -306,7 +306,7 @@ const Dragable = ({
                                 setSelectedImage({
                                   link: product.img.link,
                                   index: i,
-                                  file: product.img.file ? true : false,
+                                  file: product.img.file,
                                 });
                                 if (product.img.id) selectShape(product.img.id);
                               }}

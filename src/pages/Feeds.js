@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { inProgress, createPost } from "../constants/dummy";
+import { createPost } from "../constants/dummy";
 import Display from "../components/konva/Display";
 import Grid from "@mui/material/Grid";
 import useQuery from "../hooks/useQuery";
@@ -12,6 +12,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 import { useHistory, useParams } from "react-router-dom";
+import { useSnackbar } from "notistack";
+import useDialog from "../hooks/useDialog";
 
 const Feeds = () => {
   const [feeds, setFeeds] = useState();
@@ -23,20 +25,43 @@ const Feeds = () => {
   const handleChange = (event, value) => {
     history.push("/feeds?page=" + value);
   };
+  const { createDialog } = useDialog();
+  const { enqueueSnackbar } = useSnackbar();
 
+  const getFeeds = async () => {
+    const data = await API.getFeeds({ page, status, limit });
+    console.log(data);
+    setFeeds(data);
+  };
   useEffect(() => {
-    const get = async () => {
-      const data = await API.getFeeds({ page, status, limit });
-      console.log(data);
-      setFeeds(data);
-    };
-    get();
+    getFeeds();
   }, [status]);
 
   const addFeed = async () => {
     const data = await API.createFeed(createPost);
     console.log(data);
     history.push(`/feeds/${data._id}`);
+  };
+
+  const deleteFeed = async (id) => {
+    try {
+      createDialog({ title: "Delete Feed", description: "Yakin delete feed?" })
+        .then(async () => {
+          try {
+            console.log("confirm");
+            await API.deleteFeed(id);
+            await getFeeds();
+            enqueueSnackbar("Delete Feed Success", { variant: "success" });
+          } catch (error) {
+            enqueueSnackbar("Delete Feed Gagal", { variant: "error" });
+          }
+        })
+        .catch(() => {
+          console.log("cancelation");
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -63,7 +88,10 @@ const Feeds = () => {
                   </Link>
                   {/* </Link> */}
 
-                  <div className="flex items-center justify-center cursor-pointer w-[30%] h-[30%] duration-500 bg-red-500 hover:bg-red-600 rounded-full transition-all">
+                  <div
+                    onClick={() => deleteFeed(item._id)}
+                    className="flex items-center justify-center cursor-pointer w-[30%] h-[30%] duration-500 bg-red-500 hover:bg-red-600 rounded-full transition-all"
+                  >
                     <DeleteIcon className="text-white" />
                   </div>
                 </div>

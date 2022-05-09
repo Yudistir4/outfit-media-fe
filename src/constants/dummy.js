@@ -7,9 +7,21 @@ import logo from "../assets/logo.jpg";
 import { v4 as uuidv4 } from "uuid";
 
 export const position = [
-  { price: { x: 68.935, y: 28.6 }, logo: { x: 78.435, y: 0.71 } },
-  { price: { x: 68.935, y: 61.94 }, logo: { x: 78.435, y: 34.1 } },
-  { price: { x: 68.935, y: 85.74 }, logo: { x: 78.435, y: 66.8 } },
+  {
+    price: { x: 68.935, y: 28.6 },
+    logo: { x: 78.435, y: 0.71 },
+    img: { x: 71.435, y: 7.2 },
+  },
+  {
+    price: { x: 68.935, y: 61.94 },
+    logo: { x: 78.435, y: 34.1 },
+    img: { x: 71.435, y: 40.5 },
+  },
+  {
+    price: { x: 68.935, y: 85.74 },
+    logo: { x: 78.435, y: 66.8 },
+    img: { x: 71.435, y: 73.8 },
+  },
 ];
 
 export const generatePosition = (value, urutan) => {
@@ -313,8 +325,8 @@ export const generateProduct = (halaman, urutan) => {
     img: {
       id: "img" + Date.now(),
       link: null,
-      x: 71.435,
-      y: 53.8,
+      x: position[urutan - 1].img.x,
+      y: position[urutan - 1].img.y,
       width: 20,
       height: 20,
       draggable: true,

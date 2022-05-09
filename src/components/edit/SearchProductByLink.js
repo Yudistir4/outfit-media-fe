@@ -84,7 +84,7 @@ const SearchProduct = ({ setValue, link }) => {
                       : "bg-gray-200 text-gray-700 "
                   }  hover:bg-blue-500 hover:text-white cursor-pointer   px-3 py-1 rounded-full transition-all`}
                 >
-                  {product.price}
+                  {new Intl.NumberFormat("id-ID").format(product.price)}
                 </div>
               )}
               {product.price_min !== product.price_max && (
@@ -99,7 +99,7 @@ const SearchProduct = ({ setValue, link }) => {
                         : " bg-gray-200 text-gray-700 "
                     }  hover:bg-blue-500 hover:text-white cursor-pointer px-3 py-1 rounded-full transition-all`}
                   >
-                    {product.price_min}
+                    {new Intl.NumberFormat("id-ID").format(product.price_min)}
                   </div>
                   <div
                     onClick={() =>
@@ -111,7 +111,7 @@ const SearchProduct = ({ setValue, link }) => {
                         : " bg-gray-200 text-gray-700 "
                     }  hover:bg-blue-500 hover:text-white cursor-pointer px-3 py-1 rounded-full transition-all`}
                   >
-                    {product.price_max}
+                    {new Intl.NumberFormat("id-ID").format(product.price_max)}
                   </div>
                 </>
               )}
@@ -189,7 +189,7 @@ const SearchProduct = ({ setValue, link }) => {
                           : " bg-gray-200 text-gray-700"
                       } hover:bg-blue-500 hover:text-white cursor-pointer px-3 py-1 rounded-full transition-all`}
                     >
-                      {value.price}
+                      {new Intl.NumberFormat("id-ID").format(value.price)}
                     </div>
                   </div>
                 </div>

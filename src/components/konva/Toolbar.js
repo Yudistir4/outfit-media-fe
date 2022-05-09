@@ -45,14 +45,13 @@ const Toolbar = ({
       contentWithButton: (
         <RemovebgModal
           link={selectedImage.link}
+          file={selectedImage.file}
           setLimit={setLimit}
           setValue={(value) => {
             console.log("setValue : ", value);
             setValue(`products[${selectedImage.index}].img.link`, value.link);
-            setValue(
-              `products[${selectedImage.index}].img.filename`,
-              value.filename
-            );
+            setValue(`products[${selectedImage.index}].img.file`, value.file);
+            setValue(`products[${selectedImage.index}].img.filename`, "");
             setValue(
               `products[${selectedImage.index}].img.imgFromShopee`,
               false
@@ -61,14 +60,12 @@ const Toolbar = ({
         />
       ),
     })
-      .then((e) => {
+      .then(() => {
         console.log("confirm");
-        // setLimit(e);
         setImage(Math.random());
       })
-      .catch((e) => {
+      .catch(() => {
         console.log("cancelation");
-        // setLimit(e);
       });
   };
 

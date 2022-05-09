@@ -2,23 +2,53 @@ import useDialog from "../../hooks/useDialog";
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import API from "../../services";
+import { useSnackbar } from "notistack";
+import axios from "axios";
 
-const RemovebgModal = ({ link, setValue, setLimit }) => {
-  const { handleCancel, handleConfirm } = useDialog();
+const RemovebgModal = ({ link, file, setValue, setLimit }) => {
+  const { handleCancel, handleConfirm, handleClose } = useDialog();
   const [image, setImage] = useState();
   const [isFetching, setIsFetching] = useState(false);
 
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     const req = async () => {
       try {
         setIsFetching(true);
-        const res = await API.removebg({ link });
-        setImage(res);
+        const removebg = await API.getRemovebg();
+        console.log(removebg);
+
+        const formData = new FormData();
+        formData.append("size", "auto");
+        formData.append(file ? "image_file" : "image_url", file ? file : link);
+        const response = await axios({
+          url: "https://api.remove.bg/v1.0/removebg",
+          method: "post",
+          data: formData,
+          headers: { "X-Api-Key": removebg.apiKey },
+          responseType: "blob",
+          encoding: null,
+        });
+
+        response.data.name = Date.now() + ".png";
+        setImage({
+          link: URL.createObjectURL(response.data),
+          file: response.data,
+        });
+
+        removebg.limit--;
+        await API.updateRemovebg(removebg);
         setIsFetching(false);
-        setLimit(res.limit);
-        console.log(res);
+
+        setLimit((prev) => prev - 1);
+        // console.log(res);
       } catch (error) {
         console.log(error);
+        console.log(error.response.data);
+        console.log(error.response.status);
+
+        enqueueSnackbar("Gagal Remove Bg", { variant: "error" });
+        handleClose();
       }
     };
     req();
@@ -26,19 +56,6 @@ const RemovebgModal = ({ link, setValue, setLimit }) => {
 
   const submit = () => {
     setValue(image);
-  };
-
-  const cancel = () => {
-    return new Promise((res, rej) => {
-      const req = async () => {
-        try {
-          res(await API.deleteFile("products", image.filename));
-        } catch (error) {
-          rej("gagal delete file");
-        }
-      };
-      req();
-    });
   };
 
   return (
@@ -68,9 +85,6 @@ const RemovebgModal = ({ link, setValue, setLimit }) => {
           color="primary"
           type="button"
           onClick={async () => {
-            setIsFetching(true);
-            console.log(await cancel());
-            setIsFetching(false);
             handleCancel();
           }}
         >

@@ -17,6 +17,7 @@ import Posts from "./pages/Posts";
 import Konva from "./pages/Konva";
 import EditFeed from "./pages/EditFeed";
 import Feeds from "./pages/Feeds";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -42,6 +43,9 @@ function App() {
 
         <Route path="/feeds/:id">
           <EditFeed />
+        </Route>
+        <Route path="/home">
+          <Home />
         </Route>
         {/* <Route path="/edit">
           <Edit />

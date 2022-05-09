@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { position, createPost } from "../constants/dummy";
 import "./konva.css";
 import { useSnackbar } from "notistack";
 import API from "../services";
@@ -13,7 +12,6 @@ import { saveAs } from "file-saver";
 import Fab from "@mui/material/Fab";
 // import V3 from "../components/konva/V3";
 import PostEditor from "../components/konva/PostEditor";
-import Grid from "@mui/material/Grid";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import SaveIcon from "@mui/icons-material/Save";
 import { useForm } from "react-hook-form";
@@ -36,7 +34,6 @@ const Form = ({ feed }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
     watch,
     getValues,
     setValue,
