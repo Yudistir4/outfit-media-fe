@@ -8,9 +8,6 @@ import useDialog from "../../hooks/useDialog";
 import { useSnackbar } from "notistack";
 import API from "../../services";
 
-const initState = {
-  jadwal: false,
-};
 const Toolbar = ({
   handleDownload,
   handleAlignCenter,
@@ -94,7 +91,7 @@ const Toolbar = ({
         className="bg-gray-700 flex justify-center  items-center hover:bg-blue-500 transition-all cursor-pointer relative"
       >
         <LayersClearIcon className="text-white" />
-        <div className="absolute rounded-full bg-red-500 w-6 h-6 text-white flex sm:top-[55%] top-[50%] left-[50%] sm:left-[45%] flex justify-center items-center text-xs">
+        <div className="absolute rounded-full bg-red-500 w-6 h-6 text-white   sm:top-[55%] top-[50%] left-[50%] sm:left-[45%] flex justify-center items-center text-xs">
           {limit}
         </div>
       </div>

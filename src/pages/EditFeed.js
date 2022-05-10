@@ -31,19 +31,13 @@ const Form = ({ feed }) => {
   const [page, setPage] = useState(1);
   const [isFetching, setIsFetching] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-  const {
-    control,
-    handleSubmit,
-    watch,
-    getValues,
-    setValue,
-  } = useForm({
+  const { control, handleSubmit, watch, getValues, setValue } = useForm({
     // resolver: yupResolver(VALIDATION),
     defaultValues: feed,
   });
 
   const [image, setImage] = useState();
-
+  console.log(image);
   const values = getValues();
 
   const submit = async (data) => {

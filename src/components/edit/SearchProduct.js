@@ -70,7 +70,7 @@ const SearchProduct = ({ setValue }) => {
                   selected === item.id
                     ? "shadow-xl border-4 border-blue-400"
                     : "border-gray-300 border"
-                }  transition-all cursor-pointer  hover:shadow-xl hover:border-4 transition-all hover:border-blue-400 flex flex-col rounded-lg  border-solid aspect-[3/4] overflow-hidden`}
+                }  transition-all cursor-pointer  hover:shadow-xl hover:border-4   hover:border-blue-400 flex flex-col rounded-lg  border-solid aspect-[3/4] overflow-hidden`}
               >
                 <img
                   className="w-full  h-[70%] object-cover"
