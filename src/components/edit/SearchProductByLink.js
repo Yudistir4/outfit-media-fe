@@ -48,7 +48,7 @@ const SearchProduct = ({ setValue, link }) => {
     // result.price.id = "price" + uuidv4();
     setValue({
       name: selected.name.data,
-      price: selected.price.data,
+      price: selected.price.data.toString(),
       link: selected.image.data,
     });
   };

@@ -16,8 +16,17 @@ const TextCanvas = ({
   const trRef = useRef();
   if (control) {
     shapeProps.text = useWatch({ control, name: `${name}.text` });
-  }
 
+    if (!shapeProps.text.match(/[^.\s\d]/g) && shapeProps.text.length != 0) {
+      shapeProps.text =
+        "Rp" +
+        new Intl.NumberFormat("id-ID").format(
+          shapeProps.text.replaceAll(".", "")
+        );
+    } else {
+      shapeProps.text = "Rp" + shapeProps.text;
+    }
+  }
   useEffect(() => {
     if (isSelected) {
       // we need to attach transformer manually

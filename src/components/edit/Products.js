@@ -151,6 +151,7 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
                 variant="standard"
                 fullWidth
                 placeholder="Price"
+                currency
               />
 
               <InputLogo

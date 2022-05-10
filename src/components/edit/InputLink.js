@@ -10,14 +10,17 @@ import FormControl from "@mui/material/FormControl";
 // import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import SearchProductByLink from "./SearchProductByLink";
 import useDialog from "../../hooks/useDialog";
+import { useSnackbar } from "notistack";
 
 const InputLink = ({ name, control, setValue, setImage, urutanArray }) => {
   const { createDialog } = useDialog();
 
+  const { enqueueSnackbar } = useSnackbar();
   const searchProduct = (link) => {
-    console.log("Link L: ", link);
+    if (!link) return enqueueSnackbar("Link Kosong", { variant: "error" });
+    console.log("Link: ", link);
     createDialog({
-      title: "Seacrh Product",
+      title: "Search Product",
       allowClose: false,
       contentWithButton: (
         <SearchProductByLink
@@ -31,6 +34,8 @@ const InputLink = ({ name, control, setValue, setImage, urutanArray }) => {
             if (value.link) {
               setValue(`products[${urutanArray}].img.link`, value.link);
               setValue(`products[${urutanArray}].img.imgFromShopee`, true);
+              setValue(`products[${urutanArray}].img.width`, 20);
+              setValue(`products[${urutanArray}].img.height`, 20);
             }
           }}
         />

@@ -18,7 +18,7 @@ const Tabbar = ({ setPage, page, setValue, control }) => {
         linkNo: "",
         price: {
           id: "price" + Math.floor(Math.random() * 100),
-          text: "Rp",
+          text: "",
           x: position[i].price.x,
           y: position[i].price.y,
           fontSize: 3,
@@ -29,8 +29,8 @@ const Tabbar = ({ setPage, page, setValue, control }) => {
         img: {
           id: "img" + Math.floor(Math.random() * 100),
           link: null,
-          x: 71.435,
-          y: 53.8,
+          x: position[i].img.x,
+          y: position[i].img.y,
           width: 20,
           height: 20,
           draggable: true,
