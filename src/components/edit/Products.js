@@ -2,6 +2,7 @@ import React from "react";
 import { generateProduct, generatePosition } from "../../constants/dummy";
 import InputLogo from "./InputLogo";
 import InputLink from "./InputLink";
+import InputShortLink from "./InputShortLink";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Input from "../../core/input/Input";
 import InputImage from "../konva/InputImage";
@@ -172,7 +173,11 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
                 setImage={setImage}
                 placeholder="Link"
               />
-
+              <InputShortLink
+                name={`products[${i}].shortLink`}
+                control={control}
+                watch={watch}
+              />
               <Input
                 label="Link No"
                 name={`products[${i}].linkNo`}

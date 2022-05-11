@@ -11,11 +11,25 @@ import FormControl from "@mui/material/FormControl";
 import SearchProductByLink from "./SearchProductByLink";
 import useDialog from "../../hooks/useDialog";
 import { useSnackbar } from "notistack";
+import API from "../../services";
+import { AiOutlineLink } from "react-icons/ai";
 
 const InputLink = ({ name, control, setValue, setImage, urutanArray }) => {
   const { createDialog } = useDialog();
 
   const { enqueueSnackbar } = useSnackbar();
+
+  const shortLink = async (originUrl) => {
+    try {
+      const res = await API.getShortLink({ originUrl });
+      console.log(res);
+      setValue(`products[${urutanArray}].shortLink`, res.shortLink);
+    } catch (error) {
+      console.log(error);
+      enqueueSnackbar("Error Short Link", { variant: "error" });
+    }
+  };
+
   const searchProduct = (link) => {
     if (!link) return enqueueSnackbar("Link Kosong", { variant: "error" });
     console.log("Link: ", link);
@@ -65,7 +79,13 @@ const InputLink = ({ name, control, setValue, setImage, urutanArray }) => {
               <InputAdornment position="end">
                 <IconButton
                   size="small"
-                  aria-label="toggle password visibility"
+                  onClick={() => shortLink(value)}
+                  edge="end"
+                >
+                  <AiOutlineLink />
+                </IconButton>
+                <IconButton
+                  size="small"
                   onClick={() => searchProduct(value)}
                   edge="end"
                 >

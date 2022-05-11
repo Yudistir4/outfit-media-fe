@@ -15,6 +15,7 @@ const Tabbar = ({ setPage, page, setValue, control }) => {
         urutan: i + 1,
         productName: "",
         linkAffiliate: "",
+        shortLink: "",
         linkNo: "",
         price: {
           id: "price" + Math.floor(Math.random() * 100),

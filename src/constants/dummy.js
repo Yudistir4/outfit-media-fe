@@ -73,6 +73,7 @@ export const createPost = {
       productName: "",
       linkNo: "",
       linkAffiliate: "",
+      shortLink: "",
       price: {
         id: "price" + uuidv4(),
         text: "",
@@ -113,6 +114,7 @@ export const createPost = {
       productName: "",
       linkNo: "",
       linkAffiliate: "",
+      shortLink: "",
       price: {
         id: "price" + uuidv4(),
         text: "",
@@ -152,6 +154,7 @@ export const createPost = {
       productName: "",
       linkNo: "",
       linkAffiliate: "",
+      shortLink: "",
       price: {
         id: "price" + uuidv4(),
         text: "",

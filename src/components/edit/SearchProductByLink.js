@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import useDialog from "../../hooks/useDialog";
 import API from "../../services";
+import { useSnackbar } from "notistack";
 
 // import { product } from "../../constants/dummy";
 
 const SearchProduct = ({ setValue, link }) => {
+  const { enqueueSnackbar } = useSnackbar();
   console.log("your Link: ", link);
   const [product, setProduct] = useState();
   const [isFetching, setIsFetching] = useState(false);
@@ -35,6 +37,8 @@ const SearchProduct = ({ setValue, link }) => {
         // console.log(res);
       } catch (error) {
         console.log(error);
+        enqueueSnackbar("Error", { variant: "error" });
+        handleCancel();
       }
     };
     search();

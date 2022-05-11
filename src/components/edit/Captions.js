@@ -12,9 +12,11 @@ import FormControl from "@mui/material/FormControl";
 // import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { useWatch } from "react-hook-form";
+import { useSnackbar } from "notistack";
 
 const Captions = ({ name, control }) => {
   const captions = useWatch({ control });
+  const { enqueueSnackbar } = useSnackbar();
 
   let products = "";
   captions.products.forEach((item, i) => {
@@ -60,15 +62,11 @@ const Captions = ({ name, control }) => {
               <InputAdornment position="end">
                 <CopyToClipboard
                   text={generateCaptions}
-                  // onCopy={() => this.setState({copied: true})}
+                  onCopy={() =>
+                    enqueueSnackbar("Captions Copied!", { variant: "success" })
+                  }
                 >
-                  {/* <span>Copy to clipboard with span</span> */}
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    // onClick={handleClickShowPassword}
-                    // onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
+                  <IconButton edge="end">
                     <ContentCopyIcon />
                   </IconButton>
                 </CopyToClipboard>

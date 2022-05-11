@@ -38,6 +38,7 @@ const createPost = (data) => Post("posts", data);
 const createProduct = (data) => Post("products", data);
 const createFeed = (data) => Post("feeds", data);
 const getShopee = (data) => Post("shopees", data);
+const getShortLink = (data) => Post("shopees/shortlink", data);
 // const removebg = (data) => Post("removebg", data);
 
 // PUT
@@ -69,6 +70,7 @@ const API = {
   createFeed,
   // removebg,
   getShopee,
+  getShortLink,
   uploadFile,
   updateInfluencer,
   updatePost,
