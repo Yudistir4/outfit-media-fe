@@ -4,10 +4,13 @@ import { useSnackbar } from "notistack";
 import { MdOutlineContentCopy } from "react-icons/md";
 import InputWithBtnOutlined from "../../core/input/InputWithBtnOutlined";
 import IconButton from "@mui/material/IconButton";
+import { useWatch } from "react-hook-form";
 
 const InputShortLink = ({ name, control, watch }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const shortLink = watch(name);
+  // const shortLink = watch(name);
+  const shortLink = useWatch({ control, name });
+
   console.log(shortLink);
   return (
     <InputWithBtnOutlined

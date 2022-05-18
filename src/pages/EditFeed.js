@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "./konva.css";
+// import "./konva.css";
 import { useSnackbar } from "notistack";
 import API from "../services";
 
+import InputDateTimeWithCards from "../components/edit/InputDateTimeWithCards";
+import InputAuthor from "../components/edit/InputAuthor";
+import InputLinkPost from "../components/edit/InputLinkPost";
 import Tabbar from "../components/konva/Tabbar";
 import Products from "../components/edit/Products";
 import Captions from "../components/edit/Captions";
+import InputRevisi from "../components/edit/InputRevisi";
 import StatusToolbar from "../components/edit/StatusToolbar";
 
 import { saveAs } from "file-saver";
@@ -38,6 +42,7 @@ const Form = ({ feed }) => {
 
   const [image, setImage] = useState();
   console.log(image);
+
   const values = getValues();
 
   const submit = async (data) => {
@@ -92,7 +97,7 @@ const Form = ({ feed }) => {
     <>
       <form onSubmit={handleSubmit(submit)}>
         {/* <Grid container spacing={2} p={1}> */}
-        <div className="mb-5 md:px-0 px-4 lg:px-4 box-border flex flex-wrap border-2 border-cyan-200 md:max-w-[100vh] mx-auto lg:max-w-none gap-2 lg:max-h-[88vh]">
+        <div className="mb-5 md:px-0 px-4 lg:px-4   flex flex-wrap lg:flex-nowrap     md:max-w-[100vh] mx-auto lg:max-w-none gap-2 lg:max-h-[88vh]">
           <div className="flex w-full lg:max-w-max flex-wrap justify-between lg:justify-start gap-2">
             {/* <Grid item xs={6} container spacing={1}> */}
             <PostEditor
@@ -106,7 +111,7 @@ const Form = ({ feed }) => {
             />
             {/* </Grid> */}
           </div>
-          <div className="flex-grow overflow-y-auto lg:h-[88vh]">
+          <div className="flex-1 pb-20 overflow-y-auto lg:h-[88vh]">
             {/* <Grid container item xs spacing={2}> */}
             {/* <Grid item xs={6} className="products"> */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3  lg:grid-cols-1 xl:grid-cols-2">
@@ -119,26 +124,40 @@ const Form = ({ feed }) => {
               <StatusToolbar setValue={setValue} control={control} />
 
               <div className="flex gap-4 flex-col">
-                <div className="flex">
-                  <InputImage
-                    control={control}
-                    nameOrId={`displayImg[${page - 1}]`}
-                    setImage={setImage}
-                    position="displayImg"
-                  />
-                  <IconButton
-                    onClick={() => {
-                      if (!values.displayImg[page - 1].link) {
-                        return enqueueSnackbar("NO IMG", { variant: "error" });
-                      }
-                      saveAs(
-                        values.displayImg[page - 1].link,
-                        values.displayImg[page - 1].name || "image.jpg"
-                      );
-                    }}
-                  >
-                    <ArrowDownwardIcon />
-                  </IconButton>
+                <div className="p-3 flex flex-col rounded-lg   border-solid border-[1px]">
+                  <div className="flex justify-center items-center">
+                    <InputImage
+                      control={control}
+                      nameOrId={`displayImg[${page - 1}]`}
+                      setImage={setImage}
+                      position="displayImg"
+                    />
+                    <IconButton
+                      onClick={() => {
+                        if (!values.displayImg[page - 1].link) {
+                          return enqueueSnackbar("NO IMG", {
+                            variant: "error",
+                          });
+                        }
+
+                        if (!values.displayImg[page - 1].file) {
+                          API.DownloadFileFirebase(
+                            values.displayImg[page - 1].link,
+                            values.displayImg[page - 1].filename || "image.png"
+                          );
+                        } else {
+                          saveAs(
+                            values.displayImg[page - 1].link,
+                            values.displayImg[page - 1].filename || "image.png"
+                          );
+                        }
+                      }}
+                    >
+                      <ArrowDownwardIcon />
+                    </IconButton>
+                  </div>
+                  <InputAuthor control={control} name="author" />
+                  <InputLinkPost control={control} name="linkPost" />
                 </div>
 
                 <Products
@@ -163,6 +182,34 @@ const Form = ({ feed }) => {
               {/* </Grid> */}
               {/* <Grid item xs={6} className="products"> */}
               <div className="flex gap-4 flex-col">
+                <InputDateTimeWithCards
+                  control={control}
+                  name="jadwalPost"
+                  size="small"
+                  label="Jadwal Posting"
+                />
+
+                <InputDateTimeWithCards
+                  control={control}
+                  name="deadline"
+                  label="Deadline"
+                />
+
+                <Input
+                  name={`note`}
+                  control={control}
+                  variant="outlined"
+                  fullWidth
+                  label="Note"
+                  placeholder="Note"
+                  multiline
+                  rows={3}
+                />
+                <InputRevisi
+                  control={control}
+                  name="revisi"
+                  setValue={setValue}
+                />
                 <Input
                   name={`captions`}
                   control={control}
@@ -174,16 +221,6 @@ const Form = ({ feed }) => {
                   rows={3}
                 />
                 <Captions control={control} name="generateCaptions" />
-                <Input
-                  name={`note`}
-                  control={control}
-                  variant="outlined"
-                  fullWidth
-                  label="Note"
-                  placeholder="Note"
-                  multiline
-                  rows={3}
-                />
               </div>
 
               {/* </Grid> */}

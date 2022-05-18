@@ -237,9 +237,9 @@ const Dragable = ({
         </div>
         // </Grid>
       )}
-      <div className="flex  bg-blue-500 w-full md:flex-grow md:w-0 md:h-[90vh] md:max-w-[90vh] lg:h-[88vh] lg:w-[88vh]">
+      <div className="flex shadow-gray-400 shadow-lg w-full md:flex-grow md:w-0 md:h-[90vh] md:max-w-[90vh] lg:h-[88vh] lg:w-[88vh]">
         {/* <Grid item xs={toolbar !== false ? 10 : 12}> */}
-        <div className="w-full border-red-500 border-2" ref={container}>
+        <div className="w-full  " ref={container}>
           <Stage
             width={currentWidth}
             height={currentWidth}

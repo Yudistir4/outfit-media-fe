@@ -33,8 +33,8 @@ const Toolbar = ({
     console.log(selectedImage);
     if (!selectedImage.link)
       return enqueueSnackbar("Select Image First", { variant: "error" });
-    if (selectedImage.file)
-      return enqueueSnackbar("Save dulu", { variant: "error" });
+    // if (selectedImage.file)
+    //   return enqueueSnackbar("Save dulu", { variant: "error" });
 
     createDialog({
       title: "Remove Bg",

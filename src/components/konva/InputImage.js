@@ -11,7 +11,7 @@ const InputImage = ({ control, setImage, nameOrId, btn, icon, position }) => {
   };
   function getImage(file) {
     const url = URL.createObjectURL(file);
-    return new Promise((res, rej) => {
+    return new Promise((res) => {
       var image = new Image();
       image.src = url;
       image.onload = function () {
@@ -53,8 +53,8 @@ const InputImage = ({ control, setImage, nameOrId, btn, icon, position }) => {
         control={control}
         render={({
           field: { onChange, value, ref },
-          fieldState: { error },
-          formState,
+          // fieldState: { error },
+          // formState,
         }) => (
           <>
             <input

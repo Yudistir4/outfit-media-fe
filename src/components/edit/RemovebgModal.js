@@ -6,6 +6,7 @@ import { useSnackbar } from "notistack";
 import axios from "axios";
 
 const RemovebgModal = ({ link, file, setValue, setLimit }) => {
+  console.log(file);
   const { handleCancel, handleConfirm, handleClose } = useDialog();
   const [image, setImage] = useState();
   const [isFetching, setIsFetching] = useState(false);
@@ -19,13 +20,19 @@ const RemovebgModal = ({ link, file, setValue, setLimit }) => {
         console.log(removebg);
 
         const formData = new FormData();
+
         formData.append("size", "auto");
-        formData.append(file ? "image_file" : "image_url", file ? file : link);
+        formData.append("image_url", link);
+        // formData.append(file ? "image_file" : "image_url", file ? file : link);
+        // };
+        console.log(formData);
         const response = await axios({
           url: "https://api.remove.bg/v1.0/removebg",
           method: "post",
           data: formData,
-          headers: { "X-Api-Key": removebg.apiKey },
+          headers: {
+            "X-Api-Key": removebg.apiKey,
+          },
           responseType: "blob",
           encoding: null,
         });
@@ -45,7 +52,12 @@ const RemovebgModal = ({ link, file, setValue, setLimit }) => {
       } catch (error) {
         console.log(error);
         console.log(error.response.data);
+        console.log(error.response.data.code);
         console.log(error.response.status);
+        console.log(error.response.header);
+        console.log(error.message);
+        console.log(error.statusText);
+        console.log(error.status);
 
         enqueueSnackbar("Gagal Remove Bg", { variant: "error" });
         handleClose();

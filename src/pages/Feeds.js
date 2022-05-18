@@ -3,7 +3,7 @@ import { createPost } from "../constants/dummy";
 import Display from "../components/konva/Display";
 import Grid from "@mui/material/Grid";
 import useQuery from "../hooks/useQuery";
-
+import { MdTimer } from "react-icons/md";
 import Pagination from "@mui/material/Pagination";
 
 import API from "../services";
@@ -29,7 +29,12 @@ const Feeds = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const getFeeds = async () => {
-    const data = await API.getFeeds({ page, status, limit });
+    const data = await API.getFeeds({
+      page,
+      status,
+      limit,
+      sort: "-createdAt",
+    });
     console.log(data);
     setFeeds(data);
   };
@@ -45,11 +50,15 @@ const Feeds = () => {
 
   const deleteFeed = async (id) => {
     try {
-      createDialog({ title: "Delete Feed", description: "Yakin delete feed?" })
-        .then(async () => {
+      createDialog({
+        title: "Delete Feed",
+        description: "Yakin delete feed?",
+        onClickConfirm: () => API.deleteFeed(id),
+      })
+        .then(async (status) => {
           try {
+            console.log("status on Click : ", status);
             console.log("confirm");
-            await API.deleteFeed(id);
             await getFeeds();
             enqueueSnackbar("Delete Feed Success", { variant: "success" });
           } catch (error) {
@@ -72,13 +81,52 @@ const Feeds = () => {
           ADD FEED
         </Button>
 
-        <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-4 ">
+        <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-4 mb-10">
           {feeds &&
             feeds.docs.map((item, i) => (
-              <div key={i} className="group aspect-square relative">
-                <div className="z-10 duration-500 h-full w-full group-hover:bg-black opacity-50 absolute transition-all"></div>
+              <div
+                key={i}
+                className={`group   relative shadow-lg ${
+                  item.revisi.filter((val) => val.status === false).length > 0
+                    ? "shadow-red-500"
+                    : "shadow-gray-500"
+                }`}
+              >
+                {status !== "done" && (
+                  <div className="z-10 h-8 w-full text-sm px-3 transition-all bg-red-500 text-white flex justify-center items-center rounded-t-lg">
+                    {item.deadline && item.jadwalPost && (
+                      <MdTimer className="mr-1" />
+                    )}
+                    {item[
+                      status === "inProgress" || status === "inReview"
+                        ? "deadline"
+                        : "jadwalPost"
+                    ]
+                      ? new Date(
+                          item[
+                            status === "inProgress" || status === "inReview"
+                              ? "deadline"
+                              : "jadwalPost"
+                          ]
+                        ).toLocaleString("id-ID", {
+                          weekday: "long",
+                          // year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
+                        })
+                      : item.author
+                      ? item.author
+                      : "Belum Ditentukan"}
+                  </div>
+                )}
 
-                <div className="z-10 absolute duration-500 transition-all group-hover:flex hidden w-full h-full justify-evenly items-center">
+                <div
+                  className={`bg-black bg-opacity-50 hover:opacity-100 opacity-0 z-10 absolute duration-500 transition-all group-hover:flex hidden w-full  ${
+                    status === "done" ? "h-full" : " h-[calc(100%-32px)]"
+                  } justify-evenly items-center`}
+                >
                   {/* <Link to={`feeds/${item._id}`}> */}
                   <Link
                     to={`/feeds/${item._id}`}

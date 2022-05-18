@@ -21,7 +21,7 @@ const Captions = ({ name, control }) => {
   let products = "";
   captions.products.forEach((item, i) => {
     products += `\n${i + 1}. ${item.productName} ${
-      item.linkNo ? "(Link no " + item.linkNo + ")" : ""
+      item.linkNo ? "(Link di bio No. " + item.linkNo + ")" : ""
     }`;
   });
 

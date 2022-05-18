@@ -32,12 +32,14 @@ const InputImage = ({ control, setImage, nameOrId, btn, icon }) => {
                 }
               }}
             />
-            <label htmlFor={nameOrId}>
-              <IconButton aria-label="" component="span" ref={ref} {...btn}>
-                {icon && icon}
-                {!icon && <CameraAltIcon />}
-              </IconButton>
-            </label>
+            {!btn === "none" && (
+              <label htmlFor={nameOrId}>
+                <IconButton aria-label="" component="span" ref={ref} {...btn}>
+                  {icon && icon}
+                  {!icon && <CameraAltIcon />}
+                </IconButton>
+              </label>
+            )}
           </>
         )}
       />

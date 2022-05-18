@@ -49,7 +49,10 @@ export const createPost = {
   // id: "2",
   note: "",
   status: "inProgress",
+  linkPost: "",
+  revisi: [],
   generateCaptions: "",
+  jadwalPost: "",
   displayImg: [
     {
       id: "display" + uuidv4(),
@@ -61,7 +64,6 @@ export const createPost = {
       draggable: true,
     },
   ],
-
   halaman: 1,
   author: "",
   captions: "",

@@ -99,7 +99,7 @@ const Dragable = ({ initPost, page = 1 }) => {
     <>
       {/* <div className="bg-blue-500 w-full md:flex-grow md:w-0 md:h-[90vh] md:max-w-[90vh] lg:w-[90vh]"> */}
       {/* <Grid item xs={toolbar !== false ? 10 : 12}> */}
-      <div style={{ width: "100%", border: "1px solid red" }} ref={container}>
+      <div style={{ width: "100%" }} ref={container}>
         <Stage
           width={currentWidth}
           height={currentWidth}

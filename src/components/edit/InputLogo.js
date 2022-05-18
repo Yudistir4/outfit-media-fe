@@ -18,7 +18,7 @@ const SearchLogo = ({ name, control, setValue, urutan, setImage }) => {
   const setLogo = (value) => {
     for (let i = 0; i < 3; i++) {
       if (urutan === i + 1) {
-        value.x = position[i].logo.x;
+        // value.x =  position[i].logo.x;
         value.y = position[i].logo.y;
       }
     }
@@ -26,7 +26,7 @@ const SearchLogo = ({ name, control, setValue, urutan, setImage }) => {
     value.id = "logo" + uuidv4();
     setValue(name.replace(".username", ""), value);
     setLogos(null);
-    setImage(value.link);
+    setImage(Date.now());
   };
 
   useEffect(() => {

@@ -117,7 +117,14 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
                     if (!item.img.link) {
                       return enqueueSnackbar("NO IMG", { variant: "error" });
                     }
-                    saveAs(item.img.link, item.img.name || "image.jpg");
+                    if (!item.img.file) {
+                      API.DownloadFileFirebase(
+                        item.img.link,
+                        item.img.filename || "image.jpg"
+                      );
+                    } else {
+                      saveAs(item.img.link, item.img.filename || "image.jpg");
+                    }
                   }}
                 >
                   <ArrowDownwardIcon />

@@ -11,7 +11,6 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 // import "./Appbar.css";
-import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
@@ -108,6 +107,9 @@ export default function PrimarySearchAppBar() {
                 </Link>
                 <Link to="/feeds-status/inReview">
                   <MenuItem onClick={handleClose}>In Review</MenuItem>
+                </Link>
+                <Link to="/feeds-status/inPost">
+                  <MenuItem onClick={handleClose}>In Post</MenuItem>
                 </Link>
                 <Link to="/feeds-status/done">
                   <MenuItem onClick={handleClose}>Done</MenuItem>

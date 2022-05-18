@@ -61,6 +61,7 @@ const Tabbar = ({ setPage, page, setValue, control }) => {
       height: 100,
       draggable: true,
     });
+    setPage(pageCount + 1);
   };
 
   const List = [];

@@ -4,6 +4,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContentText from "@mui/material/DialogContentText";
 import Dialog from "@mui/material/Dialog";
+import React, { useState } from "react";
 
 const MyDialog = ({ onClose, onCancel, onConfirm, options, open }) => {
   const {
@@ -19,14 +20,24 @@ const MyDialog = ({ onClose, onCancel, onConfirm, options, open }) => {
     titleProps,
     contentProps,
     allowClose,
+    onClickConfirm,
   } = options;
+
+  const [isFetching, setIsFetching] = useState(false);
 
   return (
     <Dialog
       open={open}
       fullWidth
       {...dialogProps}
-      onClose={allowClose ? onClose : null}
+      onClose={
+        allowClose
+          ? () => {
+              if (isFetching) return;
+              onClose();
+            }
+          : null
+      }
     >
       <DialogTitle {...titleProps}>{title}</DialogTitle>
 
@@ -42,10 +53,36 @@ const MyDialog = ({ onClose, onCancel, onConfirm, options, open }) => {
 
       {!contentWithButton && (
         <DialogActions>
-          <Button onClick={onConfirm} {...confirmationButtonProps}>
+          <Button
+            onClick={async () => {
+              if (onClickConfirm) {
+                setIsFetching(true);
+                try {
+                  await onClickConfirm();
+                  setIsFetching(false);
+                  return onConfirm(true);
+                } catch (error) {
+                  setIsFetching(false);
+                  return onConfirm(false);
+                }
+              }
+              onConfirm();
+            }}
+            variant="contained"
+            disabled={isFetching}
+            {...confirmationButtonProps}
+          >
             {confirmationText}
           </Button>
-          <Button onClick={onCancel} autoFocus {...cancellationButtonProps}>
+          {/* <Button onClick={onConfirm} {...confirmationButtonProps}>
+            {confirmationText}
+          </Button> */}
+          <Button
+            variant="contained"
+            onClick={onCancel}
+            disabled={isFetching}
+            {...cancellationButtonProps}
+          >
             {cancellationText}
           </Button>
         </DialogActions>
