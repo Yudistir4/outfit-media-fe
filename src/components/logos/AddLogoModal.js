@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import useDialog from "../../hooks/useDialog";
 import Input from "../../core/input/Input";
 import InputImage from "../../core/input/InputImage";
-import Radio from "../../core/input/Radio";
 import { useForm } from "react-hook-form";
 import { BsFillCameraFill } from "react-icons/bs";
 import Button from "@mui/material/Button";

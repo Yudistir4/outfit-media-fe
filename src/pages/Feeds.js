@@ -123,7 +123,7 @@ const Feeds = () => {
                 )}
 
                 <div
-                  className={`bg-black bg-opacity-50 hover:opacity-100 opacity-0 z-10 absolute duration-500 transition-all group-hover:flex hidden w-full  ${
+                  className={`bg-black bg-opacity-50 hover:opacity-100 opacity-0 z-10 absolute duration-500 transition-all flex  w-full  ${
                     status === "done" ? "h-full" : " h-[calc(100%-32px)]"
                   } justify-evenly items-center`}
                 >

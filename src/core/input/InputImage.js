@@ -1,6 +1,7 @@
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import IconButton from "@mui/material/IconButton";
 import { Controller } from "react-hook-form";
+import React from "react";
 
 const InputImage = ({ control, setImage, nameOrId, btn, icon }) => {
   const handleChange = (e) => {
@@ -14,9 +15,13 @@ const InputImage = ({ control, setImage, nameOrId, btn, icon }) => {
         name={nameOrId}
         control={control}
         render={({
-          field: { onChange, value, ref },
-          fieldState: { error },
-          formState,
+          field: {
+            onChange,
+            //  value,
+            ref,
+          },
+          // fieldState: { error },
+          // formState,
         }) => (
           <>
             <input

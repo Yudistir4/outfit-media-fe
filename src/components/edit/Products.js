@@ -101,7 +101,10 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
         return {
           urutan: item.urutan,
           elem: (
-            <div key={i + item.id} className="product">
+            <div
+              key={i + item.id}
+              className="flex rounded-lg justify-center items-center flex-col space-y-2 border-gray-200 p-3 border-2 "
+            >
               <Typography variant="body1" color="initial">
                 Product {item.urutan}
               </Typography>

@@ -14,8 +14,6 @@ import Radio from "../../core/input/Radio";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import LoadingButton from "@mui/lab/LoadingButton";
-import CloseIcon from "@mui/icons-material/Close";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 
 const FORM_VALIDATION = Yup.object().shape({
@@ -30,7 +28,7 @@ function InfluencerForm({ influencer, ...props }) {
   const { handleClose, handleCancel, handleConfirm } = useDialog();
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(FORM_VALIDATION),
     defaultValues: {

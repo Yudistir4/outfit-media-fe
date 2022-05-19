@@ -10,12 +10,15 @@ import InfluencerList from "../components/influencer/InfluencerList";
 import Grid from "@mui/material/Grid";
 import Pagination from "@mui/material/Pagination";
 import Button from "@mui/material/Button";
+import { useSnackbar } from 'notistack';
 
 let render = 1;
 
 const Influencer = () => {
   render++;
   console.log("render :", render);
+  
+  const { enqueueSnackbar } = useSnackbar();
   const [influencers, setInfluencers] = useState();
   const { createDialog } = useDialog();
 
@@ -51,7 +54,9 @@ const Influencer = () => {
       console.log("res :", res);
 
       setInfluencers(res);
-    } catch (error) {}
+    } catch (error) {
+      enqueueSnackbar('Get Data Failed', { variant: 'error' });
+    }
   }, [page, limit]);
 
   const deleteInfluencersState = (id) => {

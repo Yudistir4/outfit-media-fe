@@ -23,7 +23,9 @@ const Posts = () => {
       try {
         const res = await API.getPosts({ query: "favorite", limit, page });
         setPosts(res);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     req();

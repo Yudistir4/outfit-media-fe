@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useRef } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import MyDialog from "./MyDialog";
 import DialogContext from "./DialogContext";
 
@@ -95,7 +95,7 @@ const DialogProvider = ({ children, defaultOptionsCustom = {} }) => {
     [resolve, handleClose]
   );
 
-  const [asu, setProps] = useState({
+  const [asu] = useState({
     createDialog,
     handleClose,
     handleCancel,

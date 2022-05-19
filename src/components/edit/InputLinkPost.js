@@ -1,7 +1,4 @@
 import React from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { useSnackbar } from "notistack";
-import { MdOutlineContentCopy } from "react-icons/md";
 import InputWithBtnOutlined from "../../core/input/InputWithBtnOutlined";
 import { AiFillInstagram } from "react-icons/ai";
 import { useWatch } from "react-hook-form";

@@ -6,15 +6,13 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { Controller } from "react-hook-form";
 
 export default function BasicDateTimePicker({ name, control, ...othersProps }) {
-  //   const [value, setValue] = React.useState(new Date());
-
   return (
     <Controller
       name={name}
       control={control}
       render={({
-        field: { onChange, value, ref },
-        fieldState: { error },
+        field: { onChange, value },
+        // fieldState: { error },
         // formState,
       }) => (
         <LocalizationProvider dateAdapter={AdapterDateFns}>

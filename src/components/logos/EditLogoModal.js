@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import useDialog from "../../hooks/useDialog";
 import Input from "../../core/input/Input";
 import InputImage from "../../core/input/InputImage";

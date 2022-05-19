@@ -42,9 +42,9 @@ const Captions = ({ name, control }) => {
       name={name}
       control={control}
       render={({
-        field: { onChange, value, ref },
-        fieldState: { error },
-        formState,
+        field: { onChange },
+        // fieldState: { error },
+        // formState,
       }) => (
         <FormControl sx={{ width: "100%" }} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">

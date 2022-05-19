@@ -3,7 +3,7 @@ import { saveAs } from "file-saver";
 const DownloadFileFirebase = (url, filename) => {
   const xhr = new XMLHttpRequest();
   xhr.responseType = "blob";
-  xhr.onload = (event) => {
+  xhr.onload = () => {
     const blob = xhr.response;
     saveAs(blob, filename);
   };

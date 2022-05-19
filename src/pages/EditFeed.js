@@ -124,7 +124,7 @@ const Form = ({ feed }) => {
               <StatusToolbar setValue={setValue} control={control} />
 
               <div className="flex gap-4 flex-col">
-                <div className="p-3 flex flex-col rounded-lg   border-solid border-[1px]">
+                <div className="p-3 flex flex-col rounded-lg border-gray-200   border-solid border-2">
                   <div className="flex justify-center items-center">
                     <InputImage
                       control={control}

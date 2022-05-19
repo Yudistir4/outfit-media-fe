@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import API from "../../services";
 import useDialog from "../../hooks/useDialog";
 import { useSnackbar } from "notistack";
@@ -13,7 +13,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Grid from "@mui/material/Grid";
-import CloseIcon from "@mui/icons-material/Close";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -28,12 +27,12 @@ const InfluencerListItem = ({
   render++;
   console.log("Render Influencer Item :", render);
 
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const [like, setLike] = useState(influencer.favorite);
   const { createDialog } = useDialog();
   const initialRender = useRef(true);
 
-  const handleFavoriteInfluencer = async (id) => {
+  const handleFavoriteInfluencer = async () => {
     setLike((prev) => !prev);
   };
 

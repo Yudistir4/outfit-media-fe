@@ -18,7 +18,6 @@ import { useAuth } from "./store/Auth";
 import Login from "./pages/Login";
 import Influencer from "./pages/Influencer";
 import Posts from "./pages/Posts";
-import Konva from "./pages/Konva";
 import EditFeed from "./pages/EditFeed";
 import Feeds from "./pages/Feeds";
 import Logos from "./pages/Logos";
@@ -46,9 +45,6 @@ function App() {
             </Route>
             <Route path="/feeds-status/:status">
               <Feeds />
-            </Route>
-            <Route path="/konva">
-              <Konva />
             </Route>
 
             <Route path="/feeds/:id">

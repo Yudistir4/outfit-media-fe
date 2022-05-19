@@ -6,6 +6,7 @@ import {
   FormLabel,
 } from "@mui/material";
 import { Controller } from "react-hook-form";
+import React from "react";
 
 function Input({ name, control, options, label, ...props }) {
   console.log("input");
@@ -22,9 +23,13 @@ function Input({ name, control, options, label, ...props }) {
       name={name}
       control={control}
       render={({
-        field: { onChange, value, ref },
-        fieldState: { error },
-        formState,
+        field: {
+          onChange,
+          value,
+          // , ref
+        },
+        // fieldState: { error },
+        // formState,
       }) => (
         <FormControl fullWidth>
           <FormLabel id="demo-controlled-radio-buttons-group">
