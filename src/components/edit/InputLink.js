@@ -1,5 +1,4 @@
 import { Controller } from "react-hook-form";
-import SearchIcon from "@mui/icons-material/Search";
 import Input from "@mui/material/Input";
 import React from "react";
 import IconButton from "@mui/material/IconButton";
@@ -13,6 +12,8 @@ import useDialog from "../../hooks/useDialog";
 import { useSnackbar } from "notistack";
 import API from "../../services";
 import { AiOutlineLink } from "react-icons/ai";
+import { BiLinkExternal } from "react-icons/bi";
+import { IoMdSearch } from "react-icons/io";
 
 const InputLink = ({ name, control, setValue, setImage, urutanArray }) => {
   const { createDialog } = useDialog();
@@ -84,13 +85,21 @@ const InputLink = ({ name, control, setValue, setImage, urutanArray }) => {
                 >
                   <AiOutlineLink />
                 </IconButton>
-                <IconButton
-                  size="small"
-                  onClick={() => searchProduct(value)}
-                  edge="end"
+                <a
+                  className="p-[5px] hover:bg-gray-100 rounded-full cursor-pointer"
+                  href={value}
+                  target="_blank"
+                  rel="noreferrer"
                 >
-                  <SearchIcon size="small" />
-                </IconButton>
+                  <BiLinkExternal />
+                </a>
+                <button
+                  type="button"
+                  className="p-[5px] hover:bg-gray-100 rounded-full cursor-pointer"
+                  onClick={() => searchProduct(value)}
+                >
+                  <IoMdSearch />
+                </button>
               </InputAdornment>
             }
             label="Link"

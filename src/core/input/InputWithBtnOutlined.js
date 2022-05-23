@@ -5,13 +5,17 @@ import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 
-const InputWithBtnOutlined = ({ name, control, button, ...props }) => {
+const InputWithBtnOutlined = ({ name, control, button, variant, ...props }) => {
   return (
     <Controller
       name={name}
       control={control}
       render={({ field: { onChange, value, ref } }) => (
-        <FormControl sx={{ width: "100%" }} variant="standard" size="small">
+        <FormControl
+          sx={{ width: "100%" }}
+          variant={variant || "standard"}
+          size="small"
+        >
           <InputLabel>{props.label}</InputLabel>
           <Input
             size="small"

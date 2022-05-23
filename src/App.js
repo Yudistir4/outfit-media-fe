@@ -22,6 +22,7 @@ import EditFeed from "./pages/EditFeed";
 import Feeds from "./pages/Feeds";
 import Logos from "./pages/Logos";
 import Home from "./pages/Home";
+import InstastoryForm from "./components/instastory/InstastoryForm";
 import Example from "./pages/Example";
 
 function App() {
@@ -34,12 +35,16 @@ function App() {
         {user ? (
           <>
             <Appbar />
+            <Route path="/story">
+              <InstastoryForm />
+            </Route>
             <Route path="/" exact>
-              <Redirect to="/influencers" />
+              <Redirect to="/feeds-status/inProgress" />
             </Route>
             <Route path="/influencers">
               <Influencer />
             </Route>
+
             <Route path="/posts">
               <Posts />
             </Route>

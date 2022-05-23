@@ -3,8 +3,8 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useSnackbar } from "notistack";
 import { MdOutlineContentCopy } from "react-icons/md";
 import InputWithBtnOutlined from "../../core/input/InputWithBtnOutlined";
-import IconButton from "@mui/material/IconButton";
 import { useWatch } from "react-hook-form";
+import { BiLinkExternal } from "react-icons/bi";
 
 const InputShortLink = ({ name, control }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -18,18 +18,31 @@ const InputShortLink = ({ name, control }) => {
       control={control}
       label="Short Link"
       button={
-        <CopyToClipboard
-          text={shortLink}
-          onCopy={() =>
-            shortLink !== "" &&
-            shortLink &&
-            enqueueSnackbar("Link Copied!", { variant: "success" })
-          }
-        >
-          <IconButton size="small" edge="end">
-            <MdOutlineContentCopy />
-          </IconButton>
-        </CopyToClipboard>
+        <>
+          <a
+            className="p-[5px] hover:bg-gray-100 rounded-full cursor-pointer"
+            href={shortLink}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <BiLinkExternal />
+          </a>
+          <CopyToClipboard
+            text={shortLink}
+            onCopy={() =>
+              shortLink !== "" &&
+              shortLink &&
+              enqueueSnackbar("Link Copied!", { variant: "success" })
+            }
+          >
+            <button
+              type="button"
+              className="p-[5px] hover:bg-gray-100 rounded-full cursor-pointer"
+            >
+              <MdOutlineContentCopy />
+            </button>
+          </CopyToClipboard>
+        </>
       }
     />
   );

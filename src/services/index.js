@@ -22,6 +22,7 @@ const getPosts = ({ query, limit, page }) =>
   Get(`posts?query=${query}&limit=${limit}&page=${page}`);
 const getFeed = (id) => Get(`feeds/${id}`);
 const getFeeds = (query) => Get(`feeds${convertToQueryStr(query)}`);
+const getFeedsNotif = () => Get(`feeds/notif`);
 const getProducts = ({ productName }) =>
   Get(`products?productName=${productName}`);
 const getLogo = (id) => Get(`logos/${id}`);
@@ -67,6 +68,7 @@ const API = {
   getLogo,
   getRemovebgs,
   getRemovebg,
+  getFeedsNotif,
   login,
   signup,
   createInfluencer,

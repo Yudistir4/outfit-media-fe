@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // import "./konva.css";
 import { useSnackbar } from "notistack";
 import API from "../services";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 import InputDateTimeWithCards from "../components/edit/InputDateTimeWithCards";
 import InputAuthor from "../components/edit/InputAuthor";
@@ -97,7 +98,7 @@ const Form = ({ feed }) => {
     <>
       <form onSubmit={handleSubmit(submit)}>
         {/* <Grid container spacing={2} p={1}> */}
-        <div className="mb-5 md:px-0 px-4 lg:px-4   flex flex-wrap lg:flex-nowrap     md:max-w-[100vh] mx-auto lg:max-w-none gap-2 lg:max-h-[88vh]">
+        <div className=" md:px-0 px-4 lg:px-4   flex flex-wrap lg:flex-nowrap     md:max-w-[100vh] mx-auto lg:max-w-none gap-2 lg:max-h-[88vh]">
           <div className="flex w-full lg:max-w-max flex-wrap justify-between lg:justify-start gap-2">
             {/* <Grid item xs={6} container spacing={1}> */}
             <PostEditor
@@ -186,7 +187,7 @@ const Form = ({ feed }) => {
                   control={control}
                   name="jadwalPost"
                   size="small"
-                  label="Jadwal Posting"
+                  label="Schedule"
                 />
 
                 <InputDateTimeWithCards
@@ -269,21 +270,35 @@ const Form = ({ feed }) => {
 const Edit = () => {
   const { id } = useParams();
   const [feed, setFeed] = useState();
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
       try {
+        setIsFetching(true);
         const result = await API.getFeed(id);
         console.log(result);
         setFeed(result);
+        setIsFetching(false);
       } catch (error) {
+        setIsFetching(false);
         console.log("GAGAL get data feed");
       }
     };
     getData();
   }, [id]);
 
-  return <React.Fragment>{feed && <Form feed={feed} />} </React.Fragment>;
+  return (
+    <React.Fragment>
+      {feed && !isFetching && <Form feed={feed} />}{" "}
+      {isFetching && (
+        <div className="w-full h-[88vh] flex justify-center items-center">
+          {" "}
+          <AiOutlineLoading3Quarters className="animate-spin" size="2rem" />
+        </div>
+      )}{" "}
+    </React.Fragment>
+  );
 };
 
 export default Edit;

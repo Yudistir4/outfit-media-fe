@@ -51,6 +51,8 @@ const TextCanvas = ({
         onTap={onSelect}
         ref={shapeRef}
         {...shapeProps}
+        fontFamily="Tienne"
+        // fontStyle="bold"
         align="center"
         //    draggable={}
         onDragEnd={(e) => {

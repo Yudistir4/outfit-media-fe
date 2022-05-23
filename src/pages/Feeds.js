@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import useQuery from "../hooks/useQuery";
 import { MdTimer } from "react-icons/md";
 import Pagination from "@mui/material/Pagination";
-
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import API from "../services";
 import { Link } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -17,6 +17,7 @@ import useDialog from "../hooks/useDialog";
 
 const Feeds = () => {
   const [feeds, setFeeds] = useState();
+  const [isFetching, setIsFetching] = useState();
   const history = useHistory();
   const { status } = useParams();
   const query = useQuery();
@@ -29,6 +30,7 @@ const Feeds = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const getFeeds = async () => {
+    setIsFetching(true);
     const data = await API.getFeeds({
       page,
       status,
@@ -36,6 +38,7 @@ const Feeds = () => {
       sort: "-createdAt",
     });
     console.log(data);
+    setIsFetching(false);
     setFeeds(data);
   };
   useEffect(() => {
@@ -83,6 +86,7 @@ const Feeds = () => {
 
         <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-4 mb-10">
           {feeds &&
+            !isFetching &&
             feeds.docs.map((item, i) => (
               <div
                 key={i}
@@ -121,9 +125,8 @@ const Feeds = () => {
                       : "Belum Ditentukan"}
                   </div>
                 )}
-
                 <div
-                  className={`bg-black bg-opacity-50 hover:opacity-100 opacity-0 z-10 absolute duration-500 transition-all flex  w-full  ${
+                  className={`group bg-black bg-opacity-50 hover:opacity-100 opacity-0  z-10 absolute duration-500 transition-all flex  w-full  ${
                     status === "done" ? "h-full" : " h-[calc(100%-32px)]"
                   } justify-evenly items-center`}
                 >
@@ -147,7 +150,13 @@ const Feeds = () => {
               </div>
             ))}
         </div>
-        {feeds && (
+        {isFetching && (
+          <div className="w-full h-[60vh]  flex justify-center items-center">
+            {" "}
+            <AiOutlineLoading3Quarters className="animate-spin" size="1.5rem" />
+          </div>
+        )}
+        {feeds && !isFetching && (
           <Grid item xs={12} justifyContent="center" container>
             <Pagination
               count={feeds.totalPages}

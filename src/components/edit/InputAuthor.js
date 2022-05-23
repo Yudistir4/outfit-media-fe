@@ -5,7 +5,6 @@ import { MdOutlineContentCopy } from "react-icons/md";
 import InputWithBtnOutlined from "../../core/input/InputWithBtnOutlined";
 import { AiFillInstagram } from "react-icons/ai";
 import { useWatch } from "react-hook-form";
-
 const InputAuthor = ({ name, control }) => {
   const { enqueueSnackbar } = useSnackbar();
   const author = useWatch({ control, name });

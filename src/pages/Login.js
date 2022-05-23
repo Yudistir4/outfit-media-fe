@@ -3,10 +3,12 @@ import Input from "../core/input/Input";
 import { useForm } from "react-hook-form";
 import API from "../services";
 import { useAuth } from "../store/Auth";
+
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 
 const Login = () => {
-  const { dispatch } = useAuth();
+  const { dispatch, isFetching } = useAuth();
   const history = useHistory();
 
   const [error, setError] = useState();
@@ -25,6 +27,8 @@ const Login = () => {
       dispatch({ type: "LOGIN_SUCCESS", payload: res });
       history.push("/");
     } catch (error) {
+      dispatch({ type: "LOGIN_FAILURE" });
+
       console.log(error.response.data.message);
       const message = ["password salah", "username tidak ditemukan"];
       if (message.includes(error.response.data.message)) {
@@ -36,7 +40,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full h-[100vh] bg-gray-100 flex justify-center items-center text-center flex-col">
+    <div className="p-5 w-full h-[100vh] bg-gray-100 flex justify-center items-center text-center flex-col">
       <div className="rounded-lg bg-white p-10 flex justify-start items-center flex-col space-y-6">
         <div className="space-y-3">
           <h1 className="font-bold text-xl">Welcome Back</h1>
@@ -70,8 +74,15 @@ const Login = () => {
           >
             {error}
           </p>
-          <button className="bg-blue-500 hover:bg-blue-600 rounded-lg w-full py-3 text-white transition-all">
-            Sign in
+          <button
+            disabled={isFetching}
+            className="bg-blue-500 hover:bg-blue-600 rounded-lg w-full py-3 text-white transition-all flex justify-center items-center"
+          >
+            {isFetching ? (
+              <AiOutlineLoading3Quarters className="animate-spin" />
+            ) : (
+              "Sign in"
+            )}
           </button>
         </form>
       </div>
