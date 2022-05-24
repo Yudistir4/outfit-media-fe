@@ -32,7 +32,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className="sticky mb-4 z-30 top-0 bg-white w-full h-[60px] shadow-lg shadow-gray-300 flex items-center  px-4 gap-4">
-      <h1 className="text-xl font-bold hidden sm:block">OUTFIT STUDIO</h1>
+      <h1 className="text-xl font-bold hidden sm:block">OUTFIT MEDIA</h1>
       <div className="flex-1 hidden sm:block"></div>
       <div className="flex gap-2 rounded-xl bg-gray-200 shadow-lg shadow-gray-200 p-1">
         <NavLink

@@ -827,6 +827,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 50%;
 }
 
+.w-\[60px\] {
+  width: 60px;
+}
+
 .min-w-0 {
   min-width: 0px;
 }
@@ -1638,6 +1642,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .sm\:hidden {
     display: none;
+  }
+
+  .sm\:h-\[86vh\] {
+    height: 86vh;
   }
 
   .sm\:-translate-x-1\/2 {

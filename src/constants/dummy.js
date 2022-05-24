@@ -53,6 +53,7 @@ export const createPost = {
   revisi: [],
   generateCaptions: "",
   jadwalPost: "",
+  deadline: "",
   displayImg: [
     {
       id: "display" + uuidv4(),
