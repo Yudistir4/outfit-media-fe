@@ -46,11 +46,20 @@ const Toolbar = ({
           setLimit={setLimit}
           setValue={(value) => {
             console.log("setValue : ", value);
-            setValue(`products[${selectedImage.index}].img.link`, value.link);
-            setValue(`products[${selectedImage.index}].img.file`, value.file);
-            setValue(`products[${selectedImage.index}].img.filename`, "");
             setValue(
-              `products[${selectedImage.index}].img.imgFromShopee`,
+              `content.reviewOutfit.products[${selectedImage.index}].img.link`,
+              value.link
+            );
+            setValue(
+              `content.reviewOutfit.products[${selectedImage.index}].img.file`,
+              value.file
+            );
+            setValue(
+              `content.reviewOutfit.products[${selectedImage.index}].img.filename`,
+              ""
+            );
+            setValue(
+              `content.reviewOutfit.products[${selectedImage.index}].img.imgFromShopee`,
               false
             );
           }}

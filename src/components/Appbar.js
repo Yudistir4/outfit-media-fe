@@ -11,15 +11,17 @@ import { useLocation } from "react-router-dom";
 import API from "../services";
 
 export default function PrimarySearchAppBar() {
-  const { pathname } = useLocation();
-  console.log("loca ", location);
+  const { search } = useLocation();
+  console.log("loca ", search);
+  // console.log(pathname);
+  // console.log(href);
   const { user, dispatch } = useAuth();
   const [popup, setPopup] = useState(false);
   const [notif, setNotif] = useState();
 
   const getFeedsNotif = async () => {
     try {
-      const res = await API.getFeedsNotif();
+      const res = await API.getContentsNotif();
       setNotif(res);
     } catch (error) {
       console.log(error);
@@ -28,7 +30,7 @@ export default function PrimarySearchAppBar() {
   const logoutHandle = () => dispatch({ type: "LOGOUT" });
   useEffect(() => {
     getFeedsNotif();
-  }, [pathname]);
+  }, [search]);
 
   return (
     <div className="sticky mb-4 z-30 top-0 bg-white w-full h-[60px] shadow-lg shadow-gray-300 flex items-center  px-4 gap-4">
@@ -36,9 +38,13 @@ export default function PrimarySearchAppBar() {
       <div className="flex-1 hidden sm:block"></div>
       <div className="flex gap-2 rounded-xl bg-gray-200 shadow-lg shadow-gray-200 p-1">
         <NavLink
-          to="/feeds-status/inProgress"
-          activeClassName="text-white bg-blue-500 shadow-lg shadow-blue-400"
-          className="relative rounded-xl  hover:text-white hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-400 font-bold transition-all cursor-pointer duration-200 h-8 w-8 flex items-center justify-center"
+          to="/contents?status=inProgress"
+          // activeClassName="text-white bg-blue-500 shadow-lg shadow-blue-400"
+          className={`${
+            search.includes("inProgress")
+              ? "text-white bg-blue-500 shadow-lg shadow-blue-400"
+              : "text-black"
+          } relative rounded-xl  hover:text-white hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-400 font-bold transition-all cursor-pointer duration-200 h-8 w-8 flex items-center justify-center`}
         >
           <RiImageEditFill />
           {notif && notif.inProgress > 0 && (
@@ -48,9 +54,13 @@ export default function PrimarySearchAppBar() {
           )}
         </NavLink>
         <NavLink
-          to="/feeds-status/inReview"
-          activeClassName=" text-white bg-blue-500 shadow-lg shadow-blue-400"
-          className="relative rounded-xl  hover:text-white hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-400 font-bold transition-all cursor-pointer duration-200 h-8 w-8 flex items-center justify-center"
+          to="/contents?status=inReview"
+          // activeClassName=" text-white bg-blue-500 shadow-lg shadow-blue-400"
+          className={`${
+            search.includes("inReview")
+              ? "text-white bg-blue-500 shadow-lg shadow-blue-400"
+              : "text-black"
+          } relative rounded-xl  hover:text-white hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-400 font-bold transition-all cursor-pointer duration-200 h-8 w-8 flex items-center justify-center`}
         >
           <IoEyeSharp />
           {notif && notif.inReview > 0 && (
@@ -60,9 +70,13 @@ export default function PrimarySearchAppBar() {
           )}
         </NavLink>
         <NavLink
-          to="/feeds-status/inPost"
-          activeClassName="text-white bg-blue-500 shadow-lg shadow-blue-400"
-          className="relative rounded-xl  hover:text-white hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-400 font-bold transition-all cursor-pointer duration-200 h-8 w-8 flex items-center justify-center"
+          to="/contents?status=inPost"
+          // activeClassName="text-white bg-blue-500 shadow-lg shadow-blue-400"
+          className={`${
+            search.includes("inPost")
+              ? "text-white bg-blue-500 shadow-lg shadow-blue-400"
+              : "text-black"
+          } relative rounded-xl  hover:text-white hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-400 font-bold transition-all cursor-pointer duration-200 h-8 w-8 flex items-center justify-center`}
         >
           <RiSendPlaneFill />
           {notif && notif.inPost > 0 && (
@@ -72,9 +86,14 @@ export default function PrimarySearchAppBar() {
           )}
         </NavLink>
         <NavLink
-          to="/feeds-status/done"
-          activeClassName="text-white bg-blue-500 shadow-lg shadow-blue-400"
-          className="rounded-xl  hover:text-white hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-400 font-bold transition-all cursor-pointer duration-200 h-8 w-8 flex items-center justify-center"
+          to="/contents?status=done"
+          // activeClassName="text-white bg-blue-500 shadow-lg shadow-blue-400"
+          // className="rounded-xl  hover:text-white hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-400 font-bold transition-all cursor-pointer duration-200 h-8 w-8 flex items-center justify-center"
+          className={`${
+            search.includes("done")
+              ? "text-white bg-blue-500 shadow-lg shadow-blue-400"
+              : "text-black"
+          }  relative rounded-xl  hover:text-white hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-400 font-bold transition-all cursor-pointer duration-200 h-8 w-8 flex items-center justify-center`}
         >
           <FaCheck />
         </NavLink>
@@ -194,16 +213,16 @@ export default function PrimarySearchAppBar() {
     //               "aria-labelledby": "basic-button",
     //             }}
     //           >
-    //             <Link to="/feeds-status/inProgress">
+    //             <Link to="/contents/inProgress">
     //               <MenuItem onClick={handleClose}>In Progress</MenuItem>
     //             </Link>
-    //             <Link to="/feeds-status/inReview">
+    //             <Link to="/contents/inReview">
     //               <MenuItem onClick={handleClose}>In Review</MenuItem>
     //             </Link>
-    //             <Link to="/feeds-status/inPost">
+    //             <Link to="/contents/inPost">
     //               <MenuItem onClick={handleClose}>In Post</MenuItem>
     //             </Link>
-    //             <Link to="/feeds-status/done">
+    //             <Link to="/contents/done">
     //               <MenuItem onClick={handleClose}>Done</MenuItem>
     //             </Link>
     //           </Menu>

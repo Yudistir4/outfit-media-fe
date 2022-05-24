@@ -15,7 +15,7 @@ import { useWatch } from "react-hook-form";
 import { useSnackbar } from "notistack";
 
 const Captions = ({ name, control }) => {
-  const captions = useWatch({ control });
+  const captions = useWatch({ control, name: "content.reviewOutfit" });
   const { enqueueSnackbar } = useSnackbar();
 
   let products = "";

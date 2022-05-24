@@ -18,10 +18,12 @@ import { useAuth } from "./store/Auth";
 import Login from "./pages/Login";
 import Influencer from "./pages/Influencer";
 import Posts from "./pages/Posts";
-import EditFeed from "./pages/EditFeed";
+// import EditFeed from "./pages/EditFeed";
 import Feeds from "./pages/Feeds";
 import Logos from "./pages/Logos";
 import Home from "./pages/Home";
+import Contents from "./pages/Contents";
+import EditContent from "./pages/EditContent";
 import InstastoryForm from "./components/instastory/InstastoryForm";
 import Example from "./pages/Example";
 
@@ -51,10 +53,16 @@ function App() {
             <Route path="/feeds-status/:status">
               <Feeds />
             </Route>
-
-            <Route path="/feeds/:id">
-              <EditFeed />
+            <Route path="/contents" exact>
+              <Contents />
             </Route>
+            <Route path="/contents/:id">
+              <EditContent />
+            </Route>
+
+            {/* <Route path="/feeds/:id">
+              <EditFeed />
+            </Route> */}
             <Route path="/home">
               <Home />
             </Route>

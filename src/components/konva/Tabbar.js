@@ -4,8 +4,8 @@ import React from "react";
 import AddIcon from "@mui/icons-material/Add";
 
 const Tabbar = ({ setPage, page, setValue, control }) => {
-  let products = useWatch({ control, name: `products` });
-  let pageCount = useWatch({ control, name: `halaman` });
+  let products = useWatch({ control, name: `content.reviewOutfit.products` });
+  let pageCount = useWatch({ control, name: `content.reviewOutfit.halaman` });
   console.log("TABBAR: ", products);
   const addPage = () => {
     for (let i = 0; i < 3; i++) {
@@ -49,10 +49,10 @@ const Tabbar = ({ setPage, page, setValue, control }) => {
       });
     }
     // debugger;
-    setValue("products", products);
+    setValue("content.reviewOutfit.products", products);
 
-    setValue("halaman", pageCount + 1);
-    setValue(`displayImg[${pageCount}]`, {
+    setValue("content.reviewOutfit.halaman", pageCount + 1);
+    setValue(`content.reviewOutfit.displayImg[${pageCount}]`, {
       id: "imgPost2",
       link: null,
       x: 0,

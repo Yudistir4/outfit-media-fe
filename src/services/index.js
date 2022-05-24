@@ -22,7 +22,9 @@ const getPosts = ({ query, limit, page }) =>
   Get(`posts?query=${query}&limit=${limit}&page=${page}`);
 const getFeed = (id) => Get(`feeds/${id}`);
 const getFeeds = (query) => Get(`feeds${convertToQueryStr(query)}`);
-const getFeedsNotif = () => Get(`feeds/notif`);
+const getContent = (id) => Get(`contents/${id}`);
+const getContents = (query) => Get(`contents${convertToQueryStr(query)}`);
+const getContentsNotif = () => Get(`contents/notif`);
 const getProducts = ({ productName }) =>
   Get(`products?productName=${productName}`);
 const getLogo = (id) => Get(`logos/${id}`);
@@ -38,6 +40,7 @@ const createInfluencer = (data) => Post("influencers", data);
 const createPost = (data) => Post("posts", data);
 const createProduct = (data) => Post("products", data);
 const createFeed = (data) => Post("feeds", data);
+const createContent = (data) => Post("contents", data);
 const createLogo = (data) => Post("logos", data);
 const getLogoByUsername = (username) => Post(`logos/${username}`);
 const getShopee = (data) => Post("shopees", data);
@@ -48,12 +51,14 @@ const getShortLink = (data) => Post("shopees/shortlink", data);
 const updateInfluencer = (data) => Put(`influencers/${data.id}`, data);
 const updatePost = (data) => Put(`posts/${data.id}`, data);
 const updateFeed = (data) => Put(`feeds/${data.id}`, data);
+const updateContent = (data) => Put(`contents/${data.id}`, data);
 const updateLogo = (data) => Put(`logos/${data.id}`, data);
 const updateRemovebg = (data) => Put(`removebg/${data.id}`, data);
 
 // DELETE
 const deleteInfluencerAndPosts = (id) => Delete(`influencers/${id}/posts`);
 const deleteFeed = (id) => Delete(`feeds/${id}`);
+const deleteContent = (id) => Delete(`contents/${id}`);
 const deleteLogo = (id) => Delete(`logos/${id}`);
 const deleteFile = (folder, filename) => DeleteFile(folder, filename);
 
@@ -68,7 +73,9 @@ const API = {
   getLogo,
   getRemovebgs,
   getRemovebg,
-  getFeedsNotif,
+  getContentsNotif,
+  getContent,
+  getContents,
   login,
   signup,
   createInfluencer,
@@ -76,6 +83,7 @@ const API = {
   createProduct,
   createFeed,
   createLogo,
+  createContent,
   // removebg,
   getLogoByUsername,
   getShopee,
@@ -86,10 +94,12 @@ const API = {
   updateFeed,
   updateRemovebg,
   updateLogo,
+  updateContent,
   deleteInfluencerAndPosts,
   deleteFile,
   deleteFeed,
   deleteLogo,
+  deleteContent,
 };
 
 export default API;

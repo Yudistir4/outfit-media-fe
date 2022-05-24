@@ -193,7 +193,7 @@ const Dragable = ({
     setCurrentWidth(width);
     setCellSize(cellSize);
 
-    data = getValues ? getValues() : initPost;
+    data = getValues ? getValues("content.reviewOutfit") : initPost;
     const convert = JSON.parse(JSON.stringify(data));
 
     for (let i = 0; i < convert.displayImg.length; i++) {
@@ -252,7 +252,7 @@ const Dragable = ({
                 <ImageCanvas
                   control={control}
                   setValue={setValue}
-                  name={`displayImg[${page - 1}]`}
+                  name={`content.reviewOutfit.displayImg[${page - 1}]`}
                   convertToPercentageSize={convertToPercentageSize}
                   img={post.displayImg[page - 1].link}
                   shapeProps={post.displayImg[page - 1]}
@@ -297,7 +297,7 @@ const Dragable = ({
                             <ImageCanvas
                               control={control}
                               setValue={setValue}
-                              name={`products[${i}].img`}
+                              name={`content.reviewOutfit.products[${i}].img`}
                               convertToPercentageSize={convertToPercentageSize}
                               img={product.img.link}
                               shapeProps={product.img}
@@ -327,7 +327,7 @@ const Dragable = ({
                             <ImageCanvas
                               control={control}
                               setValue={setValue}
-                              name={`products[${i}].logo`}
+                              name={`content.reviewOutfit.products[${i}].logo`}
                               convertToPercentageSize={convertToPercentageSize}
                               img={product.logo.link}
                               shapeProps={product.logo}
@@ -353,7 +353,7 @@ const Dragable = ({
 
                           <TextCanvas
                             control={control}
-                            name={`products[${i}].price`}
+                            name={`content.reviewOutfit.products[${i}].price`}
                             setValue={setValue}
                             convertToPercentageSize={convertToPercentageSize}
                             shapeProps={product.price}

@@ -24,7 +24,10 @@ const InputLink = ({ name, control, setValue, setImage, urutanArray }) => {
     try {
       const res = await API.getShortLink({ originUrl });
       console.log(res);
-      setValue(`products[${urutanArray}].shortLink`, res.shortLink);
+      setValue(
+        `content.reviewOutfit.products[${urutanArray}].shortLink`,
+        res.shortLink
+      );
     } catch (error) {
       console.log(error);
       enqueueSnackbar("Error Short Link", { variant: "error" });
@@ -43,14 +46,32 @@ const InputLink = ({ name, control, setValue, setImage, urutanArray }) => {
           setValue={(value) => {
             console.log(value);
             value.name &&
-              setValue(`products[${urutanArray}].productName`, value.name);
+              setValue(
+                `content.reviewOutfit.products[${urutanArray}].productName`,
+                value.name
+              );
             value.price &&
-              setValue(`products[${urutanArray}].price.text`, value.price);
+              setValue(
+                `content.reviewOutfit.products[${urutanArray}].price.text`,
+                value.price
+              );
             if (value.link) {
-              setValue(`products[${urutanArray}].img.link`, value.link);
-              setValue(`products[${urutanArray}].img.imgFromShopee`, true);
-              setValue(`products[${urutanArray}].img.width`, 20);
-              setValue(`products[${urutanArray}].img.height`, 20);
+              setValue(
+                `content.reviewOutfit.products[${urutanArray}].img.link`,
+                value.link
+              );
+              setValue(
+                `content.reviewOutfit.products[${urutanArray}].img.imgFromShopee`,
+                true
+              );
+              setValue(
+                `content.reviewOutfit.products[${urutanArray}].img.width`,
+                20
+              );
+              setValue(
+                `content.reviewOutfit.products[${urutanArray}].img.height`,
+                20
+              );
             }
           }}
         />

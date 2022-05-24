@@ -29,7 +29,7 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
   const { enqueueSnackbar } = useSnackbar();
   const searchProduct = (name, dataBefore, urutan) => {
     createDialog({
-      title: "Seacrh Product",
+      title: "Search Product",
       contentWithButton: (
         <SearchProduct
           setValue={(value) =>
@@ -69,7 +69,7 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
   };
 
   const addProduct = () => {
-    let products = watch("products");
+    let products = watch("content.reviewOutfit.products");
     let urutanProducts = products
       .filter((item) => item.halaman === page)
       .map((item) => item.urutan);
@@ -84,13 +84,13 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
     // let productsPage
     console.log("URUTAN : ", urutan);
     products.push(generateProduct(page, urutan));
-    setValue("products", products);
+    setValue("content.reviewOutfit.products", products);
   };
 
   const deleteProduct = (id) => {
-    let products = watch("products");
+    let products = watch("content.reviewOutfit.products");
     setValue(
-      "products",
+      "content.reviewOutfit.products",
       products.filter((item) => item.id !== id)
     );
   };
@@ -111,7 +111,7 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
               <div className="flex">
                 <InputImage
                   control={control}
-                  nameOrId={`products[${i}].img`}
+                  nameOrId={`content.reviewOutfit.products[${i}].img`}
                   position={`product${item.urutan}`}
                   setImage={setImage}
                 />
@@ -137,7 +137,11 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
                 </IconButton>
                 <IconButton
                   onClick={() =>
-                    searchProduct(`products[${i}]`, item, item.urutan)
+                    searchProduct(
+                      `content.reviewOutfit.products[${i}]`,
+                      item,
+                      item.urutan
+                    )
                   }
                 >
                   <SearchIcon />
@@ -149,7 +153,7 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
 
               <Input
                 label="Product Name"
-                name={`products[${i}].productName`}
+                name={`content.reviewOutfit.products[${i}].productName`}
                 control={control}
                 variant="standard"
                 fullWidth
@@ -157,7 +161,7 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
               />
               <Input
                 label="Price"
-                name={`products[${i}].price.text`}
+                name={`content.reviewOutfit.products[${i}].price.text`}
                 control={control}
                 variant="standard"
                 fullWidth
@@ -166,7 +170,7 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
               />
 
               <InputLogo
-                name={`products[${i}].logo.username`}
+                name={`content.reviewOutfit.products[${i}].logo.username`}
                 control={control}
                 setValue={setValue}
                 urutan={item.urutan}
@@ -174,7 +178,7 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
               />
               <InputLink
                 // label="Link affiliate"
-                name={`products[${i}].linkAffiliate`}
+                name={`content.reviewOutfit.products[${i}].linkAffiliate`}
                 control={control}
                 urutanArray={i}
                 setValue={setValue}
@@ -184,13 +188,13 @@ const Products = ({ control, page, setValue, watch, products, setImage }) => {
                 placeholder="Link"
               />
               <InputShortLink
-                name={`products[${i}].shortLink`}
+                name={`content.reviewOutfit.products[${i}].shortLink`}
                 control={control}
                 watch={watch}
               />
               <Input
                 label="Link No"
-                name={`products[${i}].linkNo`}
+                name={`content.reviewOutfit.products[${i}].linkNo`}
                 control={control}
                 type="number"
                 variant="standard"
