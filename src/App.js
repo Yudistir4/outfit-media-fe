@@ -38,7 +38,7 @@ function App() {
             <Appbar />
 
             <Route path="/" exact>
-              <Redirect to="/feeds-status/inProgress" />
+              <Redirect to="/contents?status=inProgress" />
             </Route>
             <Route path="/influencers">
               <Influencer />
