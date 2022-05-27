@@ -45,6 +45,10 @@ const InputRevisi = ({ control, name, setValue }) => {
                   className="flex-1 focus:border-blue-400 outline-none border-gray-300 border-[1px] rounded-xl py-2 px-4 rounded-r-none"
                   type="text"
                   value={input}
+                  onKeyPress={(e) => {
+                    e.key === "Enter" && e.preventDefault();
+                    e.key === "Enter" && addRevisi();
+                  }}
                   onChange={(e) => setInput(e.target.value)}
                 />
                 <button

@@ -18,7 +18,7 @@ const InputDateTimeWithCards = ({ name, control, label }) => {
         />
       )}
       {time && (
-        <div className="w-full h-10 bg-red-500 shadow-red-300 shadow-lg rounded-lg text-white flex items-center px-3 ">
+        <div className="flex-shrink-0 w-full h-10 bg-red-500 shadow-red-300 shadow-lg rounded-lg text-white flex items-center px-3 ">
           {new Date(time).toLocaleString("id-ID", {
             weekday: "long",
             // year: "numeric",

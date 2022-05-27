@@ -19,12 +19,11 @@ import Login from "./pages/Login";
 import Influencer from "./pages/Influencer";
 import Posts from "./pages/Posts";
 // import EditFeed from "./pages/EditFeed";
-import Feeds from "./pages/Feeds";
+// import Feeds from "./pages/Feeds";
 import Logos from "./pages/Logos";
 import Home from "./pages/Home";
 import Contents from "./pages/Contents";
 import EditContent from "./pages/EditContent";
-import InstastoryForm from "./components/instastory/InstastoryForm";
 import Example from "./pages/Example";
 
 function App() {
@@ -37,9 +36,7 @@ function App() {
         {user ? (
           <>
             <Appbar />
-            <Route path="/story">
-              <InstastoryForm />
-            </Route>
+
             <Route path="/" exact>
               <Redirect to="/feeds-status/inProgress" />
             </Route>
@@ -50,9 +47,9 @@ function App() {
             <Route path="/posts">
               <Posts />
             </Route>
-            <Route path="/feeds-status/:status">
+            {/* <Route path="/feeds-status/:status">
               <Feeds />
-            </Route>
+            </Route> */}
             <Route path="/contents" exact>
               <Contents />
             </Route>

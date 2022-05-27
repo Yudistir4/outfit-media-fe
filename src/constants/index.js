@@ -1,24 +1,20 @@
 import { v4 as uuidv4 } from "uuid";
 
-export const initState = {
-  reviewOutfit: createContent(reviewOutfit),
-  story: createContent(story),
-};
-
-const createContent = (contentType) => {
-  return {
+const createContent = (contentType, state) => {
+  const data = {
     // id: "2",
     account: "outfitgram.id",
-    contentType: "reviewOutfit",
+    contentType,
     status: "inProgress",
     schedule: "",
     deadline: "",
     revisi: [],
     note: "",
-    content: {
-      contentType,
-    },
+    content: {},
   };
+
+  data.content[contentType] = state;
+  return data;
 };
 
 const story = {
@@ -166,4 +162,9 @@ const reviewOutfit = {
       },
     },
   ],
+};
+
+export const initState = {
+  reviewOutfit: createContent("reviewOutfit", reviewOutfit),
+  story: createContent("story", story),
 };

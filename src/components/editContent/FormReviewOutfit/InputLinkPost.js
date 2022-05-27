@@ -1,7 +1,8 @@
 import React from "react";
-import InputWithBtnOutlined from "../../core/input/InputWithBtnOutlined";
 import { AiFillInstagram } from "react-icons/ai";
 import { useWatch } from "react-hook-form";
+
+import InputWithBtnOutlined from "../../../core/input/InputWithBtnOutlined";
 
 const InputAuthor = ({ name, control }) => {
   const linkPost = useWatch({ control, name });

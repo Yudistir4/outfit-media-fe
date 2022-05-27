@@ -1,7 +1,7 @@
 import React from "react";
 import { Controller } from "react-hook-form";
-import { MdOutlineContentCopy } from "react-icons/md";
 import { useSnackbar } from "notistack";
+import { MdOutlineContentCopy } from "react-icons/md";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const InputCopy = ({ label, name, control }) => {
@@ -14,14 +14,14 @@ const InputCopy = ({ label, name, control }) => {
         <>
           <div className="relative mt-1">
             <label
-              htmlFor="i1"
-              className="focus:bg-red-500 absolute bg-white text-xs p-1 top-[-13px] left-[8px]"
+              htmlFor={name || "pepe1"}
+              className="bg-white absolute  text-xs px-1 top-[-8px] left-[8px]"
             >
               {label}
             </label>
             <input
               {...field}
-              id="i1"
+              id={name || "pepe1"}
               type="text"
               className="w-full border-gray-300 border-[1px] px-3 py-2 rounded-md outline-none focus:border-blue-500"
               placeholder="Input"

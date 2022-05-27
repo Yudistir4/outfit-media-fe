@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import useDialog from "../../hooks/useDialog";
-import API from "../../services";
+import useDialog from "../../../hooks/useDialog";
+import API from "../../../services";
 import { useSnackbar } from "notistack";
 
 // import { product } from "../../constants/dummy";

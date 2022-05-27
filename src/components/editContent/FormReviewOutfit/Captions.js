@@ -1,5 +1,5 @@
 import { Controller } from "react-hook-form";
-import { tags } from "../../constants/dummy";
+import { tags } from "../../../constants/dummy";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import React from "react";

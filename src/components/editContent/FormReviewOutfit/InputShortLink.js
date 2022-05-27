@@ -2,9 +2,10 @@ import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useSnackbar } from "notistack";
 import { MdOutlineContentCopy } from "react-icons/md";
-import InputWithBtnOutlined from "../../core/input/InputWithBtnOutlined";
 import { useWatch } from "react-hook-form";
 import { BiLinkExternal } from "react-icons/bi";
+
+import InputWithBtnOutlined from "../../../core/input/InputWithBtnOutlined";
 
 const InputShortLink = ({ name, control }) => {
   const { enqueueSnackbar } = useSnackbar();

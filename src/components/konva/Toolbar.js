@@ -3,7 +3,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import LayersClearIcon from "@mui/icons-material/LayersClear";
-import RemovebgModal from "../edit/RemovebgModal";
+import RemovebgModal from "../editContent/FormReviewOutfit/RemovebgModal";
 import useDialog from "../../hooks/useDialog";
 import { useSnackbar } from "notistack";
 import API from "../../services";

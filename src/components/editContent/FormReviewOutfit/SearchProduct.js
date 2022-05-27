@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import useDialog from "../../hooks/useDialog";
-import API from "../../services";
+import useDialog from "../../../hooks/useDialog";
+import API from "../../../services";
 import { v4 as uuidv4 } from "uuid";
 
 // import { products } from "../../constants/dummy";

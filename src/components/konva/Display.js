@@ -6,10 +6,10 @@ import ImageCanvas from "./ImageCanvas";
 import TextCanvas from "./TextCanvas";
 
 const Dragable = ({ initPost, page = 1 }) => {
-  console.log("V3 : ", initPost);
+  // console.log("V3 : ", initPost);
   const [post, setPost] = React.useState(initPost);
   const [template, setTemplate] = React.useState();
-  console.log("POST :", post.products);
+  // console.log("POST :", post.products);
   // const postRef = useRef(initPost);
   // postRef.current = initPost;
   const [selectedId, selectShape] = React.useState(null);
@@ -63,13 +63,14 @@ const Dragable = ({ initPost, page = 1 }) => {
       cellSize = 20;
     }
     cellSizeRef.current = cellSize;
+    console.log(container.current.offsetWidth);
     setCurrentWidth(width);
     setCellSize(cellSize);
 
     data = initPost;
     const convert = JSON.parse(JSON.stringify(data));
 
-    console.log(convert.template);
+    // console.log(convert.template);
     for (let i = 0; i < convert.displayImg.length; i++) {
       convert.displayImg[i] = convertToRealSize(convert.displayImg[i]);
     }
@@ -120,7 +121,7 @@ const Dragable = ({ initPost, page = 1 }) => {
                     selectShape(post.displayImg[page - 1].id);
                 }}
                 onChangeCanvas={(newAttrs) => {
-                  console.log("Result ", newAttrs);
+                  // console.log("Result ", newAttrs);
                   setPost((prev) => {
                     prev.displayImg[page - 1] = newAttrs;
                     return { ...prev };
@@ -145,10 +146,10 @@ const Dragable = ({ initPost, page = 1 }) => {
               cellSize &&
               post.products
                 .map((product, i) => {
-                  console.log("item: ", i);
+                  // console.log("item: ", i);
                   if (product.halaman === page) {
                     // debugger;
-                    console.log("item: ", i);
+                    // console.log("item: ", i);
                     return (
                       <React.Fragment key={i}>
                         {product.img.link && (

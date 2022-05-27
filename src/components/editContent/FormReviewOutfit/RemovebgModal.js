@@ -1,9 +1,9 @@
-import useDialog from "../../hooks/useDialog";
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import API from "../../services";
 import { useSnackbar } from "notistack";
 import axios from "axios";
+import useDialog from "../../../hooks/useDialog";
+import API from "../../../services";
 
 const RemovebgModal = ({ link, file, setValue, setLimit }) => {
   console.log(file);
