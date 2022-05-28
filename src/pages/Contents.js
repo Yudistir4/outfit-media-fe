@@ -205,8 +205,6 @@ const Contents = () => {
                       )}
                     </>
                   )}
-                  {/* {!item.content.story.materi.url && (
-                  )} */}
                 </div>
               );
             })}
