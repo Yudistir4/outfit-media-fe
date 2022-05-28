@@ -183,22 +183,30 @@ const Contents = () => {
                   {item.contentType === "reviewOutfit" && (
                     <Display initPost={item.content.reviewOutfit} />
                   )}
-                  {item.contentType === "story" &&
-                    item.content.story.materi.url && (
-                      <>
-                        {item.content.story.materi.fileType === "video" ? (
-                          <video
-                            className="aspect-square object-cover w-full"
-                            src={item.content.story.materi.url}
-                          />
-                        ) : (
-                          <img
-                            className="aspect-square object-cover w-full"
-                            src={item.content.story.materi.url}
-                          />
-                        )}
-                      </>
-                    )}
+
+                  {item.contentType === "story" && (
+                    <>
+                      {item.content.story.materi.url ? (
+                        <>
+                          {item.content.story.materi.fileType === "video" ? (
+                            <video
+                              className="aspect-square object-cover w-full"
+                              src={item.content.story.materi.url}
+                            />
+                          ) : (
+                            <img
+                              className="aspect-square object-cover w-full"
+                              src={item.content.story.materi.url}
+                            />
+                          )}
+                        </>
+                      ) : (
+                        <div className="aspect-square"></div>
+                      )}
+                    </>
+                  )}
+                  {/* {!item.content.story.materi.url && (
+                  )} */}
                 </div>
               );
             })}
