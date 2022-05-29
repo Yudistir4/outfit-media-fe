@@ -3,6 +3,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import FormReviewOutfit from "../components/editContent/FormReviewOutfit";
 import FormStory from "../components/editContent/FormStory";
+import FormFeed from "../components/editContent/FormFeed";
 import API from "../services";
 
 // const VALIDATION =
@@ -36,6 +37,7 @@ const Edit = () => {
             <FormReviewOutfit data={data} />
           )}
           {data.contentType === "story" && <FormStory data={data} />}
+          {data.contentType === "feed" && <FormFeed data={data} />}
         </>
       )}
       {isFetching && (

@@ -16,13 +16,13 @@ import { useHistory } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import useDialog from "../hooks/useDialog";
 
-// const color = {
-//   pp: "red",
-//   story: "bg-blue-500 shadow-blue-500",
-//   feed: "green",
-//   reels: "yellow",
-//   ga: "teal",
-// };
+const color = {
+  pp: "bg-red-500",
+  story: "bg-blue-500",
+  feed: "bg-green-500",
+  reels: "yellow",
+  ga: "teal",
+};
 
 const Contents = () => {
   const [contents, setContents] = useState();
@@ -104,6 +104,13 @@ const Contents = () => {
           >
             ADD STORY
           </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => addContent("feed")}
+          >
+            ADD FEED
+          </Button>
         </div>
 
         <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-4 mb-10">
@@ -154,8 +161,16 @@ const Contents = () => {
                         )}
                         {item.contentType !== "reviewOutfit" && (
                           <span className="relative flex h-3 w-3">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                            <span
+                              className={`animate-ping absolute inline-flex h-full w-full rounded-full ${
+                                color[item.contentType]
+                              } opacity-75`}
+                            ></span>
+                            <span
+                              className={`relative inline-flex rounded-full h-3 w-3 ${
+                                color[item.contentType]
+                              }`}
+                            ></span>
                           </span>
                         )}
                       </div>
@@ -197,6 +212,27 @@ const Contents = () => {
                             <img
                               className="aspect-square object-cover w-full"
                               src={item.content.story.materi.url}
+                            />
+                          )}
+                        </>
+                      ) : (
+                        <div className="aspect-square"></div>
+                      )}
+                    </>
+                  )}
+                  {item.contentType === "feed" && (
+                    <>
+                      {item.content.feed.materi.length > 0 ? (
+                        <>
+                          {item.content.feed.materi[0].fileType === "video" ? (
+                            <video
+                              className="aspect-square object-cover w-full"
+                              src={item.content.feed.materi[0].url}
+                            />
+                          ) : (
+                            <img
+                              className="aspect-square object-cover w-full"
+                              src={item.content.feed.materi[0].url}
                             />
                           )}
                         </>
