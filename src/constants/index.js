@@ -22,6 +22,11 @@ const story = {
   tags: [],
   link: "",
 };
+const feed = {
+  materi: [],
+  tags: [],
+  caption: "",
+};
 
 const reviewOutfit = {
   generateCaptions: "",
@@ -167,4 +172,5 @@ const reviewOutfit = {
 export const initState = {
   reviewOutfit: createContent("reviewOutfit", reviewOutfit),
   story: createContent("story", story),
+  feed: createContent("feed", feed),
 };

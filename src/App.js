@@ -24,6 +24,7 @@ import Logos from "./pages/Logos";
 import Home from "./pages/Home";
 import Contents from "./pages/Contents";
 import EditContent from "./pages/EditContent";
+import FormFeed from "./components/editContent/FormFeed";
 import Example from "./pages/Example";
 
 function App() {
@@ -39,6 +40,9 @@ function App() {
 
             <Route path="/" exact>
               <Redirect to="/contents?status=inProgress" />
+            </Route>
+            <Route path="/feed">
+              <FormFeed />
             </Route>
             <Route path="/influencers">
               <Influencer />
