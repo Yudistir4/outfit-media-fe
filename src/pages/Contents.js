@@ -33,6 +33,8 @@ const Contents = () => {
   const page = parseInt(query.get("page")) || 1;
   const limit = parseInt(query.get("limit")) || 10;
   const status = query.get("status");
+  const sort = query.get("sort") || "-createdAt";
+
   const handleChange = (event, value) => {
     history.push("/contents?page=" + value);
   };
@@ -45,7 +47,7 @@ const Contents = () => {
       page,
       status,
       limit,
-      sort: "-createdAt",
+      sort,
     });
     console.log(data);
     setIsFetching(false);
@@ -130,27 +132,41 @@ const Contents = () => {
                     <div className="z-10 h-8 w-full text-sm px-3 gap-2 transition-all bg-black text-white flex justify-between items-center rounded-t-lg">
                       <div className="flex items-center ">
                         <MdTimer className="mr-1" />
-                        <h5 className="text-xs">
-                          {item[
-                            status === "inProgress" || status === "inReview"
-                              ? "deadline"
-                              : "schedule"
-                          ] &&
-                            new Date(
-                              item[
-                                status === "inProgress" || status === "inReview"
-                                  ? "deadline"
-                                  : "schedule"
-                              ]
-                            ).toLocaleString("id-ID", {
-                              weekday: "long",
-                              // year: "numeric",
-                              month: "short",
-                              day: "numeric",
-                              hour: "numeric",
-                              minute: "numeric",
-                            })}
-                        </h5>
+                        {new Date(item.schedule).getDate() ===
+                        new Date().getDate() ? (
+                          <>
+                            <div className="text-xs rounded-lg bg-red-500 shadow-lg shadow-red-300 px-2">
+                              TODAY{" "}
+                              {new Date(item.schedule).toLocaleString("id-ID", {
+                                hour: "numeric",
+                                minute: "numeric",
+                              })}
+                            </div>
+                          </>
+                        ) : (
+                          <h5 className="text-xs">
+                            {item[
+                              status === "inProgress" || status === "inReview"
+                                ? "deadline"
+                                : "schedule"
+                            ] &&
+                              new Date(
+                                item[
+                                  status === "inProgress" ||
+                                  status === "inReview"
+                                    ? "deadline"
+                                    : "schedule"
+                                ]
+                              ).toLocaleString("id-ID", {
+                                weekday: "long",
+                                // year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                                hour: "numeric",
+                                minute: "numeric",
+                              })}
+                          </h5>
+                        )}
                       </div>
                       <div className="gap-2 flex items-center">
                         {item.isPP && (
@@ -205,12 +221,12 @@ const Contents = () => {
                         <>
                           {item.content.story.materi.fileType === "video" ? (
                             <video
-                              className="aspect-square object-cover w-full"
+                              className="aspect-square object-contain w-full"
                               src={item.content.story.materi.url}
                             />
                           ) : (
                             <img
-                              className="aspect-square object-cover w-full"
+                              className="aspect-square object-contain w-full"
                               src={item.content.story.materi.url}
                             />
                           )}

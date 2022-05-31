@@ -38,7 +38,7 @@ export default function PrimarySearchAppBar() {
       <div className="flex-1 hidden sm:block"></div>
       <div className="flex gap-2 rounded-xl bg-gray-200 shadow-lg shadow-gray-200 p-1">
         <NavLink
-          to="/contents?status=inProgress"
+          to="/contents?status=inProgress&sort=+deadline"
           // activeClassName="text-white bg-blue-500 shadow-lg shadow-blue-400"
           className={`${
             search.includes("inProgress")
@@ -70,7 +70,7 @@ export default function PrimarySearchAppBar() {
           )}
         </NavLink>
         <NavLink
-          to="/contents?status=inPost"
+          to="/contents?status=inPost&sort=+schedule"
           // activeClassName="text-white bg-blue-500 shadow-lg shadow-blue-400"
           className={`${
             search.includes("inPost")

@@ -24,6 +24,7 @@ import Logos from "./pages/Logos";
 import Home from "./pages/Home";
 import Contents from "./pages/Contents";
 import EditContent from "./pages/EditContent";
+import Pricelist from "./pages/Pricelist";
 import FormFeed from "./components/editContent/FormFeed";
 import Example from "./pages/Example";
 
@@ -73,14 +74,20 @@ function App() {
             <Route path="/example">
               <Example />
             </Route>
+            <Route path="/pricelist">
+              <Pricelist />
+            </Route>
           </>
         ) : (
           <>
-            <Route path="/">
+            <Route path="/" exact>
               <Redirect to="/login" />
             </Route>
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/pricelist">
+              <Pricelist />
             </Route>
           </>
         )}
